@@ -1,3 +1,5 @@
+"use client";
+
 import Layout from "@/layout/Layout";
 import StatCard from "./components/StatCard";
 import Alerts from "./components/Alerts";
