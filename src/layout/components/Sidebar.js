@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { Home, Activity, FileText, Settings, ChevronDown, Flower2, LayoutDashboard } from "lucide-react";
 
@@ -8,17 +10,21 @@ export default function Sidebar({ isOpen }) {
 
   const [greenhouseOpen, setGreenhouseOpen] = useState(false);
 
+  
+  const pathname = usePathname();
+  const isActive = (href) =>
+    pathname === href || pathname.startsWith(href + "/");
+
   return (
     <aside
-      // <aside> a semantic HTML for sidebars
-      className={`${isOpen ? "w-70" : "w-20" // when open: width (70), collapsed: width (20)
+      className={`${isOpen ? "w-70" : "w-20" 
         } bg-[#2F4635] text-white p-4 flex flex-col 
       transition-[width] duration-300 overflow-hidden`}
     >
       {/* dropdown */}
       <div className={`${isOpen ? "mb-4 mr-6 mt-7" : "mb-4 mt-7"}`}>
         <button
-          onClick={() => setGreenhouseOpen(!greenhouseOpen)} // toggle dropdown open/close
+          onClick={() => setGreenhouseOpen(!greenhouseOpen)} 
           className={`flex items-center w-full p-3 rounded-xl border-1 border-gray-200 
             ${isOpen ? "ml-3 justify-between gap-2" : "justify-center"}`}
         >
@@ -53,25 +59,28 @@ export default function Sidebar({ isOpen }) {
       {/* Navigation links */}
       <nav className="space-y-2">
         {/* Dashboard link */}
-        <a
-          href="#"
-          className={`flex p-3 rounded-lg font-medium 
-            ${isOpen ? "my-3 mx-3 bg-[#DCE6DC] text-[#2F4635] items-center gap-2" 
-                      : "my-3 justify-center bg-[#DCE6DC] text-[#2F4635]"}`}
+        <Link
+          href="/dashboard"
+          className={`flex p-3 rounded-lg font-medium my-3 ${isOpen ? "mx-3 items-center gap-2" : "justify-center"} ${
+            isActive("/dashboard") ? "bg-[#DCE6DC] text-[#2F4635]" : "text-gray-200 hover:bg-[#3C5A44]"
+          }`}
+          aria-current={isActive("/dashboard") ? "page" : undefined}
         >
           <LayoutDashboard size={15} className={`${isOpen ? "ml-2" : ""}`} />
           {isOpen && <span className="ml-1 whitespace-nowrap text-sm">Dashboard</span>}
-        </a>
+        </Link>
 
         {/* Logs link */}
-        <a
-          href="#"
-          className={`flex p-3 rounded-lg hover:bg-[#3C5A44]
-            ${isOpen ? "my-3 mx-3 items-center gap-2" : "my-3 justify-center"}`}
+        <Link
+          href="/logs"
+          className={`flex p-3 rounded-lg my-3 ${isOpen ? "mx-3 items-center gap-2" : "justify-center"} ${
+            isActive("/logs") ? "bg-[#DCE6DC] text-[#2F4635]" : "text-gray-200 hover:bg-[#3C5A44]"
+          }`}
+          aria-current={isActive("/logs") ? "page" : undefined}
         >
           <FileText size={15} className={`${isOpen ? "ml-2" : ""}`} />
           {isOpen && <span className="ml-1 whitespace-nowrap text-sm">Logs</span>}
-        </a>
+        </Link>
 
         {/* Disease Detection link - Check if we'll remove it or not*/}
         <a
@@ -84,14 +93,16 @@ export default function Sidebar({ isOpen }) {
         </a>
 
         {/* Control Panel link */}
-        <a
-          href="#"
-          className={`flex p-3 rounded-lg hover:bg-[#3C5A44] 
-            ${isOpen ? "my-3 mx-3 items-center gap-2" : "my-3 justify-center"}`}
+        <Link
+          href="/control"
+          className={`flex p-3 rounded-lg my-3 ${isOpen ? "mx-3 items-center gap-2" : "justify-center"} ${
+            isActive("/control") ? "bg-[#DCE6DC] text-[#2F4635]" : "text-gray-200 hover:bg-[#3C5A44]"
+          }`}
+          aria-current={isActive("/control") ? "page" : undefined}
         >
           <Settings size={15} className={`${isOpen ? "ml-2" : ""}`} />
           {isOpen && <span className="ml-1 whitespace-nowrap text-sm">Control Panel</span>}
-        </a>
+        </Link>
       </nav>
     </aside>
   );
