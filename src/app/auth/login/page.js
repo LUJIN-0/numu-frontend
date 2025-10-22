@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -107,7 +107,7 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Remember Me + Forgot Password */}
+            {/* Remember Me + Forgot Password 
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 text-sm text-gray-600">
                 <input
@@ -123,7 +123,7 @@ export default function LoginPage() {
               >
                 Forgot Password?
               </a>
-            </div>
+            </div>*/}
 
             {/* Server Error */}
             {serverError && (
@@ -140,13 +140,14 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Signup Link */}
+          {/* Signup Link 
           <p className="text-sm text-gray-500 text-center mt-4">
             Don’t have an account?{" "}
             <a href="/auth/signup" className="text-green-700 font-medium hover:underline">
               Sign up
             </a>
-          </p>
+          </p>*/}
+
         </div>
       </div>
 

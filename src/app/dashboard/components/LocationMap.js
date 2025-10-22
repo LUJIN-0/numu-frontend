@@ -1,7 +1,9 @@
+'use client'
+
 export default function LocationMap() {
   return (
     <div>
-      <h2 className="font-light text-lg mb-4 text-gray-600">Location</h2>
+      <h2 className="font-light text-lg mb-4 text-gray-600 wrap-break-word">Location</h2>
       <iframe
         src="https://maps.google.com/maps?q=King%20Abdulaziz%20University&t=&z=15&ie=UTF8&iwloc=&output=embed"
         width="100%"

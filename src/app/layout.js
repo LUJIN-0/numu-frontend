@@ -1,8 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes"
+import { ThemeProvider } from "@/components/themeProvider";
 import SplashScreen from "@/components/splashScreen";
-
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,12 +21,34 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
-        <SplashScreen />
-        {children}
-      </ThemeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Runs before React hydration to avoid theme flash */}
+        <Script id="theme-initializer" strategy="beforeInteractive">
+          {`
+            try {
+              const theme = localStorage.getItem('theme');
+              const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+              const isDark = theme === 'dark' || (theme === 'system' && systemDark);
+              if (isDark) document.documentElement.classList.add('dark');
+              else document.documentElement.classList.remove('dark');
+            } catch (e) {}
+          `}
+        </Script>
+      </head>
+
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SplashScreen />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
 import Layout from "@/layout/Layout";
 
 export default function ControlPage() {
   return (
     <Layout>
-      { /* Page content here - Shoug worked on this one*/}
+      { /* Page content here - Not decided yet */}
     </Layout>
   );
 }

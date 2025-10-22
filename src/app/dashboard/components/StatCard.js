@@ -1,4 +1,5 @@
-"use client";
+'use client'
+
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 
@@ -41,9 +42,9 @@ export default function StatCard({ title, value, max, icon = null }) {
   };
 
   return (
-    <div className="col-span-4 bg-white rounded-lg border-1 border-gray-300 p-6 flex flex-col items-center justify-center">
+    <div className="col-span-4 bg-white rounded-lg border border-gray-300 p-4 sm:p-6 flex flex-col items-center justify-center">
       {/* Chart container */}
-      <div className="relative w-40 h-40">
+      <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">
         
         {/* Doughnut chart */}
         <div className="absolute inset-0">
@@ -54,22 +55,21 @@ export default function StatCard({ title, value, max, icon = null }) {
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
 
           {/* small pale circular badge for icon */}
-          <div className="bg-[#ECF7EE] rounded-full p-2 mb-1 flex items-center justify-center">
-
+          <div className="bg-[#ECF7EE] rounded-full p-2 sm:p-3 mb-1 flex items-center justify-center">
             {/* render icon */}
             {icon}
           </div>
 
           {/* numeric value */}
-          <div className="text-2xl font-bold text-gray-800">
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 text-center">
             {Number.isFinite(numericValue) ? numericValue : "—"}
-            {unit && <span className="text-sm font-normal ml-1">{unit}</span>}
+            {unit && <span className="text-xs sm:text-sm font-normal ml-1">{unit}</span>}
           </div>
         </div>
       </div>
 
       {/* Label below */}
-      <p className="text-gray-500 mt-3">{title}</p>
+      <p className="text-gray-500 mt-3 text-sm sm:text-base text-center">{title}</p>
     </div>
   );
 }

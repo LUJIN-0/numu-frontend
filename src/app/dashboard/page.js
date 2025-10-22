@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import Layout from "@/layout/Layout";
 import StatCard from "./components/StatCard";
@@ -38,27 +38,27 @@ export default function DashboardPage() {
             />
 
             {/* Chart */}
-            <div className="col-span-8 bg-white rounded-lg p-4 border-1 border-gray-300">
+            <div className="col-span-8 bg-white rounded-lg p-4 border border-gray-300">
               <Chart />
             </div>
 
             {/* Alerts */}
-            <div className="col-span-4 bg-white rounded-lg p-4 border-1 border-gray-300">
+            <div className="col-span-4 bg-white rounded-lg p-4 border border-gray-300">
               <Alerts />
             </div>
 
             {/* Location */}
-            <div className="col-span-4 bg-white rounded-lg p-4 border-1 border-gray-300">
+            <div className="col-span-4 bg-white rounded-lg p-4 border border-gray-300">
               <LocationMap />
             </div>
 
             {/* Crop Info */}
-            <div className="col-span-4 bg-white rounded-lg p-4 border-1 border-gray-300">
+            <div className="col-span-4 bg-white rounded-lg p-4 border border-gray-300">
               <CropInfo />
             </div>
 
             {/* Growth */}
-            <div className="col-span-4 bg-white rounded-lg p-4 border-1 border-gray-300">
+            <div className="col-span-4 bg-white rounded-lg p-4 border border-gray-300">
               <GrowthTimeline />
             </div>
           </main>

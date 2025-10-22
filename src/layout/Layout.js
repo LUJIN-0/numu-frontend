@@ -1,4 +1,4 @@
-"use client"; 
+'use client'
 
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
@@ -20,7 +20,7 @@ export default function Layout({ children }) {
 
       {/* Body (Sidebar + page contents) */}
       <div className="flex flex-1">
-        <Sidebar isOpen={isSidebarOpen} /> 
+        <Sidebar isOpen={isSidebarOpen} />
         {/* we pass the state to Sidebar to know if it's expanded/collapsed */}
 
         <main className="flex-1 p-6">{children}</main>

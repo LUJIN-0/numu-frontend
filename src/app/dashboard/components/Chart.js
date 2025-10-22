@@ -1,5 +1,5 @@
-// I mostly didn't work on this one 
-"use client";
+'use client'
+
 import React, { useState, useMemo } from "react";
 import {
   ResponsiveContainer,
@@ -48,7 +48,7 @@ export default function Chart() {
   const metricConfig = useMemo(() => {
     if (metric === "temp") return { unit: "°C", color: "#b7791f", gradient: "#facc15" };
     if (metric === "humidity") return { unit: "% r.H", color: "#2f6b57", gradient: "#8bd19a" };
-    return { unit: "", color: "#6b7280", gradient: "#c7c7c7" }; // AQI default
+    return { unit: "", color: "#6b7280", gradient: "#c7c7c7" };
   }, [metric]);
 
   const data = useMemo(() => sampleData, []);
@@ -59,14 +59,14 @@ export default function Chart() {
   const selectedY = selected?.[metric];
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6">
+    <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 w-full max-w-full overflow-hidden">
       {/* header + controls */}
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <h3 className="text-gray-700 text-lg font-light mb-2">Historical Data</h3>
+      <div className="flex flex-wrap items-start justify-between mb-4 gap-4">
+        <div className="min-w-[200px]">
+          <h3 className="text-gray-700 text-base sm:text-lg font-light mb-2">Historical Data</h3>
 
           {/* small radio group */}
-          <div className="flex items-center space-x-6 text-sm text-gray-600">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-600">
             <label className="flex items-center space-x-2">
               <input
                 type="radio"
@@ -103,11 +103,11 @@ export default function Chart() {
         </div>
 
         {/* right controls */}
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <select
             value={interval}
             onChange={(e) => setInterval(e.target.value)}
-            className="bg-white border border-gray-200 rounded-md px-3 py-1 text-sm shadow-sm text-gray-500"
+            className="bg-white border border-gray-200 rounded-md px-3 py-1 text-sm shadow-sm text-gray-500 w-fit"
           >
             <option>Daily</option>
             <option>Hourly</option>
@@ -117,7 +117,7 @@ export default function Chart() {
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="bg-white border border-gray-200 rounded-md px-3 py-1 text-sm shadow-sm text-gray-500"
+            className="bg-white border border-gray-200 rounded-md px-3 py-1 text-sm shadow-sm text-gray-500 w-fit"
           >
             <option>March</option>
             <option>February</option>
@@ -127,7 +127,7 @@ export default function Chart() {
       </div>
 
       {/* chart area */}
-      <div className="w-full h-64">
+      <div className="w-full h-52 sm:h-60 md:h-64 lg:h-72 xl:h-80 overflow-hidden">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 10, right: 24, left: 16, bottom: 6 }}>
             <defs>

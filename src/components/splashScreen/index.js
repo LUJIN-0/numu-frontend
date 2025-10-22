@@ -1,10 +1,18 @@
-"use client";
+'use client'
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 export default function SplashScreen() {
   const [loading, setLoading] = useState(true);
+  const { theme, resolvedTheme } = useTheme();
+
+  // Wait for next-themes to load the actual theme
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (resolvedTheme) setReady(true);
+  }, [resolvedTheme]);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000);
@@ -13,15 +21,19 @@ export default function SplashScreen() {
 
   if (!loading) return null;
 
+  const currentTheme = theme === "system" ? resolvedTheme : theme;
+  const mainLogo =
+    ready && currentTheme === "dark" ? "/logo-dark.png" : "/logo-light.png";
+
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white transition-opacity duration-500">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-(--SplashScreen-background) transition-opacity duration-500">
       {/* Logo */}
       <div className="relative w-28 h-28 flex items-center justify-center">
         <Image
-          src="/logo.png"
+          src={mainLogo}
           alt="NUMU Logo"
           fill
-          className="object-contain"
+          className="object-contain transition-opacity duration-300"
           priority
         />
       </div>

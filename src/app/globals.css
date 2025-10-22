@@ -1,29 +1,74 @@
 @import "tailwindcss";
 
-/* Base light theme */
+/* Light theme */
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Sidebar */
+  --sidebar-bg: #2F4635;
+  --sidebar-hover: #3C5A44;
+  --sidebar-active-bg: #DCE6DC;
+  --sidebar-active-text: #2F4635;
+  --border-color: #e5e7eb;
+  --theme-switch-hover: #e5e7eb;
+
+  /* Header */
+  --header-bg: #ffffff;
+  --header-text: #171717;
+  --header-border: #e5e7eb;
+  --header-hover: #f3f4f6;
+  --header-input-bg: #f3f4f6;
+
+  /* Splash Screen*/
+  --SplashScreen-background: #ffffff;
 }
 
-/* Dark theme (applied when <html class="dark">) */
+/* Dark theme */
 html.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #0b1510;
+  --foreground: #e8f1e8;
+
+  /* Sidebar */
+  --sidebar-bg: #1b3327;
+  --sidebar-hover: #264436;
+  --sidebar-active-bg: #3b5448;
+  --sidebar-active-text: #b6d2b6;
+  --border-color: #324136;
+
+  /* Theme Switch */
+  --theme-switch-hover: #2d3f33;
+
+  /* Header */
+  --header-bg: #202b24;
+  --header-text: #e9f3ea;
+  --header-border: #324136;
+  --header-hover: #2b3a32;
+  --header-input-bg: #2d3f33;
+
+  /* Splash Screen*/
+  --SplashScreen-background: #171d19;
 }
 
+
+
+
+
+
+
+
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/*
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
-  transition: background 0.3s, color 0.3s;
-}
+}*/
