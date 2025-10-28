@@ -121,7 +121,7 @@ export default function Header({ onToggleSidebar }) {
 
           {/* Dropdown menu */}
           {open && (
-            <div className="absolute right-0 w-25 bg-(--header-bg) border border-(--border-color) rounded-md z-50">
+            <div className="absolute right-0 w-23 bg-(--header-bg) border border-(--border-color) rounded-md z-50">
               <Link
                 href="#"
                 className="block px-4 py-2 text-sm text-(--header-text) hover:bg-(--header-hover)"

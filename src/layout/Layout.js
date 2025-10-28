@@ -14,7 +14,7 @@ export default function Layout({ children }) {
   // toggle function for hamburger button
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: "var(--background)", color: "var(--foreground)", }}>
       {/* Header */}
       <Header onToggleSidebar={handleToggleSidebar} />
 

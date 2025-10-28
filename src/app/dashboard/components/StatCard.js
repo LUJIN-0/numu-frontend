@@ -1,75 +1,111 @@
 'use client'
 
+import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip);
 
 export default function StatCard({ title, value, max, icon = null }) {
-
-  // extract numeric part (e.g., 18 from "18°C")
   const numericValue = typeof value === "number" ? value : parseFloat(value || "0");
-  
-  // extract unit text from string (e.g., "°C" or "% r.H")
   const unit =
     typeof value === "number" ? "" : (value || "").replace(String(numericValue), "").trim();
 
-  // clamp percent to [0, max]
   const clamped = Math.max(0, Math.min(numericValue || 0, max));
 
-  // chart data: filled portion then remaining
+  // Local state for chart colors
+  const [colors, setColors] = useState({
+    fill: "#2F4635", // fallback
+    empty: "#EAF4EE", // fallback
+  });
+
+  useEffect(() => {
+    const getColors = () => {
+      if (typeof window === "undefined") return;
+      const root = getComputedStyle(document.documentElement);
+      const fill = root.getPropertyValue("--chart-fill")?.trim() || "#2F4635";
+      const empty = root.getPropertyValue("--chart-empty")?.trim() || "#EAF4EE";
+      setColors({ fill, empty });
+    };
+
+    getColors();
+
+    // Check theme changes
+    const observer = new MutationObserver(getColors);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const data = {
     datasets: [
       {
         data: [clamped, Math.max(0, max - clamped)],
-        // active vs inactive
-        backgroundColor: ["#2F4635", "#EAF4EE"],
+        backgroundColor: [colors.fill, colors.empty],
         borderWidth: 0,
-        // cutout
         cutout: "78%",
       },
     ],
   };
 
   const options = {
-    rotation: -135, // start angle
-    circumference: 270, // how much of the circle to draw
+    rotation: -135,
+    circumference: 270,
     plugins: {
-      tooltip: { enabled: false }, // hide tooltips
+      tooltip: { enabled: false },
       legend: { display: false },
     },
-    maintainAspectRatio: false, // let the container control sizing
+    maintainAspectRatio: false,
   };
 
   return (
-    <div className="col-span-4 bg-white rounded-lg border border-gray-300 p-4 sm:p-6 flex flex-col items-center justify-center">
-      {/* Chart container */}
+    <div
+      className="col-span-4 rounded-lg border p-4 sm:p-6 flex flex-col items-center justify-center transition-all duration-300"
+      style={{
+        backgroundColor: "var(--card-bg)",
+        borderColor: "var(--border-color)",
+        color: "var(--card-text)",
+      }}
+    >
       <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">
-        
-        {/* Doughnut chart */}
         <div className="absolute inset-0">
           <Doughnut data={data} options={options} />
         </div>
 
-        {/* small icon badge + numeric value */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-
-          {/* small pale circular badge for icon */}
-          <div className="bg-[#ECF7EE] rounded-full p-2 sm:p-3 mb-1 flex items-center justify-center">
-            {/* render icon */}
+          <div
+            className="rounded-full p-2 sm:p-3 mb-1 flex items-center justify-center transition-colors duration-300"
+            style={{ backgroundColor: colors.empty }}
+          >
             {icon}
           </div>
 
-          {/* numeric value */}
-          <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 text-center">
+          <div
+            className="text-lg sm:text-xl md:text-2xl font-bold text-center transition-colors duration-300"
+            style={{ color: "var(--card-text)" }}
+          >
             {Number.isFinite(numericValue) ? numericValue : "—"}
-            {unit && <span className="text-xs sm:text-sm font-normal ml-1">{unit}</span>}
+            {unit && (
+              <span
+                className="text-xs sm:text-sm font-normal ml-1 transition-colors duration-300"
+                style={{ color: "var(--muted-text)" }}
+              >
+                {unit}
+              </span>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Label below */}
-      <p className="text-gray-500 mt-3 text-sm sm:text-base text-center">{title}</p>
+      <p
+        className="mt-3 text-sm sm:text-base text-center transition-colors duration-300"
+        style={{ color: "var(--muted-text)" }}
+      >
+        {title}
+      </p>
     </div>
   );
 }

@@ -22,6 +22,14 @@
 
   /* Splash Screen*/
   --SplashScreen-background: #ffffff;
+
+  /* Cards and content */
+  --card-bg: #ffffff;
+  --card-text: #1f2937;
+  --muted-text: #6b7280;
+  --chart-bg: #EAF4EE;
+  --chart-fill: #2F4635;
+  --chart-empty: #EAF4EE; 
 }
 
 /* Dark theme */
@@ -48,6 +56,14 @@ html.dark {
 
   /* Splash Screen*/
   --SplashScreen-background: #171d19;
+
+  /* Cards and content */
+  --card-bg: #1a231d;
+  --card-text: #e3f1e6;
+  --muted-text: #aabfb0;
+  --chart-bg: #2d3f33;
+  --chart-fill: #9cd4a8;
+  --chart-empty: #2d3f33; 
 }
 
 
