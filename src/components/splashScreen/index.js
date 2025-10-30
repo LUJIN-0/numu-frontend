@@ -2,17 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
+import { useTranslations } from 'next-intl';
 
 export default function SplashScreen() {
   const [loading, setLoading] = useState(true);
-  const { theme, resolvedTheme } = useTheme();
-
-  // Wait for next-themes to load the actual theme
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    if (resolvedTheme) setReady(true);
-  }, [resolvedTheme]);
+  const  t  = useTranslations('SplashScreen');
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000);
@@ -21,16 +15,12 @@ export default function SplashScreen() {
 
   if (!loading) return null;
 
-  const currentTheme = theme === "system" ? resolvedTheme : theme;
-  const mainLogo =
-    ready && currentTheme === "dark" ? "/logo-dark.png" : "/logo-light.png";
-
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-(--SplashScreen-background) transition-opacity duration-500">
       {/* Logo */}
       <div className="relative w-28 h-28 flex items-center justify-center">
         <Image
-          src={mainLogo}
+          src="/logo-screen.png"
           alt="NUMU Logo"
           fill
           className="object-contain transition-opacity duration-300"
@@ -38,7 +28,7 @@ export default function SplashScreen() {
         />
       </div>
 
-      <p className="text-gray-500 text-md">A Smart Greenhouse System</p>
+      <p className="text-gray-500 text-md">{t('splash-screen')}</p>
 
       {/* Animated progress bar */}
       <div className="mt-4 h-1.5 w-32 bg-gray-200 rounded-full overflow-hidden">

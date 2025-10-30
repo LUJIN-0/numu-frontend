@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import ThemeSwitcher from "@/components/themeSwitcher";
+import LanguageSwitcher from "@/components/languageSwitcher";
 import { useTheme } from "next-themes";
+import { useTranslations } from 'next-intl';
 
 export default function Header({ onToggleSidebar }) {
   // onToggleSidebar: passed from Layout.js to expand/collapse sidebar
@@ -14,6 +16,7 @@ export default function Header({ onToggleSidebar }) {
   const menuRef = useRef(null);
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const  t  = useTranslations('Header');
 
   // Wait until mounted to avoid hydration mismatch
   useEffect(() => setMounted(true), []);
@@ -38,7 +41,7 @@ export default function Header({ onToggleSidebar }) {
         {/* Left side: Toggle + Logo + Search */}
         <div className="flex items-center gap-4 w-1/2">
           <div className="w-9 h-9"></div> {/* placeholder for menu */}
-          <div className="flex items-center gap-2 pl-1 w-[75px] h-[28px]"></div> {/* placeholder for logo */}
+          <div className="flex items-center gap-2 pl-1 w-[75px] h-7"></div> {/* placeholder for logo */}
         </div>
       </header>
     );
@@ -86,7 +89,7 @@ export default function Header({ onToggleSidebar }) {
           />
           <input
             type="text"
-            placeholder="Search"
+            placeholder={t('search')}
             className="w-full pl-10 pr-3 py-1.5 bg-(--header-input-bg) focus:outline-none rounded-lg 
             placeholder-gray-300 text-(--header-text) text-sm placeholder:text-sm placeholder:italic border-(--header-border) border"
           />
@@ -95,17 +98,15 @@ export default function Header({ onToggleSidebar }) {
 
       {/* Right side: Theme + Language + User */}
       <div className="flex items-center gap-4">
-
+        
+        {/* Theme switcher */}
         <ThemeSwitcher />
 
         {/* Vertical divider */}
         <div className="w-px h-9 bg-(--header-border)"></div>
 
         {/* Language switcher */}
-        <select className="bg-(--header-input-bg) px-3 py-2 rounded text-(--header-text) text-sm">
-          <option>English</option>
-          <option>Arabic</option>
-        </select>
+        <LanguageSwitcher />
 
         {/* Vertical divider */}
         <div className="w-px h-9 bg-(--header-border)"></div>
@@ -126,7 +127,7 @@ export default function Header({ onToggleSidebar }) {
                 href="#"
                 className="block px-4 py-2 text-sm text-(--header-text) hover:bg-(--header-hover)"
               >
-                Log Out
+                {t('logout')}
               </Link>
             </div>
           )}

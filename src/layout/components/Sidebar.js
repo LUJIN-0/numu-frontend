@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Home, Activity, FileText, Settings, ChevronDown, LayoutDashboard } from "lucide-react";
+import { Home, FileText, Settings, ChevronDown, LayoutDashboard, AlertOctagon } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 export default function Sidebar({ isOpen }) {
   const [greenhouseOpen, setGreenhouseOpen] = useState(false);
   const pathname = usePathname();
+  const  t  = useTranslations('SideBar');
 
   return (
     <aside
@@ -28,7 +30,7 @@ export default function Sidebar({ isOpen }) {
           {/* To show text only if sidebar is open */}
           {isOpen && (
             <span className="flex-1 text-left text-sm whitespace-nowrap overflow-hidden">
-              Greenhouse 1
+              {t('greenhouse')} 1
             </span>
           )}
 
@@ -75,7 +77,7 @@ export default function Sidebar({ isOpen }) {
         >
           <LayoutDashboard size={15} className={`${isOpen ? "ml-2" : ""}`} />
           {isOpen && (
-            <span className="ml-1 whitespace-nowrap text-sm">Dashboard</span>
+            <span className="ml-1 whitespace-nowrap text-sm">{t('dashboard')}</span>
           )}
         </a>
 
@@ -91,7 +93,7 @@ export default function Sidebar({ isOpen }) {
         >
           <FileText size={15} className={`${isOpen ? "ml-2" : ""}`} />
           {isOpen && (
-            <span className="ml-1 whitespace-nowrap text-sm">Logs</span>
+            <span className="ml-1 whitespace-nowrap text-sm">{t('logs')}</span>
           )}
         </a>
 
@@ -107,7 +109,23 @@ export default function Sidebar({ isOpen }) {
         >
           <Settings size={15} className={`${isOpen ? "ml-2" : ""}`} />
           {isOpen && (
-            <span className="ml-1 whitespace-nowrap text-sm">Control Panel</span>
+            <span className="ml-1 whitespace-nowrap text-sm">{t('control-panel')}</span>
+          )}
+        </a>
+
+        {/* Alerts link */}
+        <a
+          href="./alerts"
+          className={`flex p-3 rounded-lg font-medium transition-colors
+        ${pathname === "/alerts"
+              ? "bg-(--sidebar-active-bg) text-(--sidebar-active-text)"
+              : "hover:bg-(--sidebar-hover)"
+            } 
+        ${isOpen ? "my-3 mx-3 items-center gap-2" : "my-3 justify-center"}`}
+        >
+          <AlertOctagon size={15} className={`${isOpen ? "ml-2" : ""}`} />
+          {isOpen && (
+            <span className="ml-1 whitespace-nowrap text-sm">{t('alerts')}</span>
           )}
         </a>
       </nav>

@@ -63,12 +63,8 @@ export default function StatCard({ title, value, max, icon = null }) {
 
   return (
     <div
-      className="col-span-4 rounded-lg border p-4 sm:p-6 flex flex-col items-center justify-center transition-all duration-300"
-      style={{
-        backgroundColor: "var(--card-bg)",
-        borderColor: "var(--border-color)",
-        color: "var(--card-text)",
-      }}
+      className="col-span-4 rounded-lg border p-4 sm:p-6 flex flex-col items-center justify-center transition-all duration-300
+       border-(--border-color) bg-(--card-bg) text-(--card-text)"
     >
       <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">
         <div className="absolute inset-0">
@@ -84,15 +80,11 @@ export default function StatCard({ title, value, max, icon = null }) {
           </div>
 
           <div
-            className="text-lg sm:text-xl md:text-2xl font-bold text-center transition-colors duration-300"
-            style={{ color: "var(--card-text)" }}
+            className="text-lg sm:text-xl md:text-2xl font-bold text-center transition-colors duration-300 text-(--card-text)"
           >
             {Number.isFinite(numericValue) ? numericValue : "—"}
             {unit && (
-              <span
-                className="text-xs sm:text-sm font-normal ml-1 transition-colors duration-300"
-                style={{ color: "var(--muted-text)" }}
-              >
+              <span className="text-xs sm:text-sm font-normal ml-1 transition-colors duration-300 text-(--muted-text)">
                 {unit}
               </span>
             )}
@@ -100,10 +92,7 @@ export default function StatCard({ title, value, max, icon = null }) {
         </div>
       </div>
 
-      <p
-        className="mt-3 text-sm sm:text-base text-center transition-colors duration-300"
-        style={{ color: "var(--muted-text)" }}
-      >
+      <p className="mt-3 text-sm sm:text-base text-center transition-colors duration-300 text-(--muted-text)">
         {title}
       </p>
     </div>

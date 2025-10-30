@@ -51,7 +51,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
+    <div className="min-h-screen flex transition-colors duration-300 bg-background text-(--card-text)">
       {/* Left - Form */}
       <div className="flex flex-col justify-center items-center w-full md:w-1/2 p-10">
         {/* Logo */}
@@ -65,23 +65,26 @@ export default function LoginPage() {
           />
         </div>
 
-        <div className="p-8 w-full max-w-md">
-          <h1 className="text-xl font-semibold text-center text-gray-800 mb-6">
-            Welcome Back
-          </h1>
+        <div className="p-8 w-full max-w-md transition-colors duration-300">
+          <h1 className="text-xl font-semibold text-center mb-6 transition-colors duration-300 text-(--card-text)">Welcome Back</h1>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Username / Email Feild */}
             <div>
-              <label className="block text-gray-700 text-sm mb-1">
-                Username / Email
-              </label>
+              <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">Username / Email</label>
               <input
                 type="text"
                 {...register("identifier")}
-                className={`w-full border ${
-                  errors.identifier ? "border-red-500" : "border-gray-300"
-                } rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-600`}
+                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${
+                  errors.identifier ? "border-red-500" : ""
+                }`}
+                style={{
+                  backgroundColor: "var(--header-input-bg)",
+                  borderColor: errors.identifier
+                    ? "#ef4444"
+                    : "var(--border-color)",
+                  color: "var(--card-text)",
+                }}
               />
               {errors.identifier && (
                 <p className="text-red-500 text-xs mt-1">
@@ -92,13 +95,20 @@ export default function LoginPage() {
 
             {/* Password Feild */}
             <div>
-              <label className="block text-gray-700 text-sm mb-1">Password</label>
+              <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">Password</label>
               <input
                 type="password"
                 {...register("password")}
-                className={`w-full border ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                } rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-600`}
+                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${
+                  errors.password ? "border-red-500" : ""
+                }`}
+                style={{
+                  backgroundColor: "var(--header-input-bg)",
+                  borderColor: errors.password
+                    ? "#ef4444"
+                    : "var(--border-color)",
+                  color: "var(--card-text)",
+                }}
               />
               {errors.password && (
                 <p className="text-red-500 text-xs mt-1">
@@ -109,17 +119,16 @@ export default function LoginPage() {
 
             {/* Remember Me + Forgot Password 
             <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-gray-600">
+              <label className="flex items-center gap-2 text-sm text-(--muted-text)">
                 <input
-                  type="checkbox"
-                  className="rounded border-gray-300 text-green-700 focus:ring-green-600"
-                />
+                  type="checkbox" 
+                  className="rounded border text-green-700 focus:ring-green-600 border-(--border-color)"/>
                 Remember Me
               </label>
 
               <a
                 href="/auth/reset-password"
-                className="text-sm text-green-700 hover:underline"
+                className="text-sm hover:underline" style={{ color: "var(--chart-fill)" }}
               >
                 Forgot Password?
               </a>
@@ -134,20 +143,27 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-green-700 hover:bg-green-800 text-white font-medium py-2 rounded-md transition disabled:opacity-60"
+              className="w-full font-medium py-2 rounded-md transition disabled:opacity-60"
+              style={{
+                backgroundColor: "var(--sidebar-bg)",
+                color: "#fff",
+                border: "1px solid var(--border-color)",
+              }}
             >
               {loading ? "Logging in..." : "Login"}
             </button>
           </form>
 
           {/* Signup Link 
-          <p className="text-sm text-gray-500 text-center mt-4">
-            Don’t have an account?{" "}
-            <a href="/auth/signup" className="text-green-700 font-medium hover:underline">
+          <p className="text-sm text-center mt-4 text-(--muted-text)">Don’t have an account?{" "}
+            <a
+              href="/auth/signup"
+              className="font-medium hover:underline"
+              style={{ color: "var(--chart-fill)" }}
+            >
               Sign up
             </a>
           </p>*/}
-
         </div>
       </div>
 

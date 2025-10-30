@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/themeProvider";
 import SplashScreen from "@/components/splashScreen";
 import Script from "next/script";
+import {NextIntlClientProvider, useLocale} from 'next-intl';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,10 +21,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+  const locale = useLocale();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
-        {/* Runs before React hydration to avoid theme flash */}
+        {/* Prevent theme flash before hydration */}
         <Script id="theme-initializer" strategy="beforeInteractive">
           {`
             try {
@@ -37,11 +41,14 @@ export default function RootLayout({ children }) {
         </Script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SplashScreen />
-          {children}
-        </ThemeProvider>
+        <NextIntlClientProvider locale={locale}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <SplashScreen />
+            {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
 }
+

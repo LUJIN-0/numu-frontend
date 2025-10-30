@@ -1,0 +1,34 @@
+{
+  "SideBar": {
+    "dashboard": "لوحة المعلومات",
+    "logs": "السجلات",
+    "control-panel": "لوحة التحكم",
+    "alerts": "التنبيهات",
+    "greenhouse": "المحمية"
+  },
+  "Header": {
+    "search": "ابحث",
+    "logout": "تسجيل الخروج"
+  },
+  "Dashboard": {
+    "temp": "الحرارة",
+    "humedity": "الرطوبة",
+    "aqi": "مؤشر جودة الهواء",
+    "historical-data": "البيانات التاريخية",
+    "daily": "باليوم",
+    "hourly": "بالساعة",
+    "weekly": "بالأسبوع",
+    "alerts": "التنبيهات",
+    "location": "الموقع",
+    "crop-info": "معلومات المحصول",
+    "name": "الاسم",
+    "growth": "الجدول الزمني للنمو",
+    "parameter": "المعامل",
+    "ideal-range": "النطاق المثالي",
+    "temp-day": "درجة الحرارة (نهارًا)",
+    "temp-night": "درجة الحرارة (ليلًا)"
+  },
+  "SplashScreen": {
+    "splash-screen": "نظام المحميات الذكي"
+  }
+}

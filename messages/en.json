@@ -1,0 +1,34 @@
+{
+  "SideBar": {
+    "dashboard": "Dashboard",
+    "logs": "Logs",
+    "control-panel": "Control Panel",
+    "alerts": "Alerts",
+    "greenhouse": "Greenhouse"
+  },
+  "Header": {
+    "search": "Search",
+    "logout": "Logout"
+  },
+  "Dashboard": {
+    "temp": "Temperature",
+    "humedity": "Humidity",
+    "aqi": "AQI",
+    "historical-data": "Historical Data",
+    "daily": "Daily",
+    "hourly": "Hourly",
+    "weekly": "Weekly",
+    "alerts": "Alerts",
+    "location": "Location",
+    "crop-info": "Crop Info",
+    "name": "Name",
+    "growth": "Growth Timeline",
+    "parameter": "Parameter",
+    "ideal-range": "Ideal Range",
+    "temp-day": "Temp (Day)",
+    "temp-night": "Temp (Night)"
+  },
+  "SplashScreen": {
+    "splash-screen": "A Smart Greenhouse System"
+  }
+}
