@@ -3,7 +3,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/themeProvider";
 import SplashScreen from "@/components/splashScreen";
 import Script from "next/script";
-import {NextIntlClientProvider, useLocale} from 'next-intl';
+import { NextIntlClientProvider, useLocale } from 'next-intl';
+import AmplifyProvider from "@/components/amplifyProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +18,9 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Numu",
+    icons: {
+    icon: "/favicon.ico",
+  },
   description: "Smart greenhouse monitoring system",
 };
 
@@ -42,10 +46,12 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider locale={locale}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <SplashScreen />
-            {children}
-          </ThemeProvider>
+          <AmplifyProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+              <SplashScreen />
+              {children}
+            </ThemeProvider>
+          </AmplifyProvider>
         </NextIntlClientProvider>
       </body>
     </html>

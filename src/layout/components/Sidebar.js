@@ -53,12 +53,6 @@ export default function Sidebar({ isOpen }) {
             >
               Greenhouse 1
             </a>
-            <a
-              href="#"
-              className="block hover:underline text-gray-100"
-            >
-              Greenhouse 2
-            </a>
           </div>
         )}
       </div>

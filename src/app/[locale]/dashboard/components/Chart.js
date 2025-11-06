@@ -34,7 +34,7 @@ function CustomTooltip({ active, payload, label, unit }) {
 }
 
 export default function Chart() {
-  const  t  = useTranslations('Dashboard');
+  const t = useTranslations('Dashboard');
   const [metric, setMetric] = useState("temp"), [interval, setInterval] = useState("Daily"), [month, setMonth] = useState("March")
   const metricConfig = useMemo(() => metric === "temp" ? { unit: "°C", color: "#b7791f", gradient: "#facc15" } :
     metric === "humidity" ? { unit: "% r.H", color: "#2f6b57", gradient: "#8bd19a" } : { unit: "", color: "#6b7280", gradient: "#c7c7c7" }, [metric])
@@ -67,22 +67,31 @@ export default function Chart() {
       </CardHeader>
 
       <CardContent className="w-full h-52 sm:h-60 md:h-64 lg:h-72 xl:h-80 overflow-hidden">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data} margin={{ top: 10, right: 24, left: 16, bottom: 6 }}>
-            <defs><linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor={metricConfig.gradient} stopOpacity={0.35} />
-              <stop offset="60%" stopColor={metricConfig.gradient} stopOpacity={0.12} />
-              <stop offset="100%" stopColor={metricConfig.gradient} stopOpacity={0.04} /></linearGradient></defs>
-            <CartesianGrid vertical={false} stroke="var(--border-color)" strokeDasharray="3 3" />
-            <XAxis dataKey="day" axisLine={false} tickLine={false} padding={{ left: 10, right: 10 }} tick={{ fill: "var(--muted-text)", fontSize: 12 }} />
-            <YAxis axisLine={false} tickLine={false} tick={{ fill: "var(--muted-text)", fontSize: 12 }} />
-            <Area type="monotone" dataKey={metric} stroke="transparent" fill="url(#areaGrad)" isAnimationActive={false} />
-            <Line type="monotone" dataKey={metric} stroke={metricConfig.color} strokeWidth={3} dot={false} activeDot={{ r: 6 }} isAnimationActive={false} />
-            {todayData && <ReferenceLine x={todayData.day} stroke="var(--border-color)" strokeWidth={1} strokeOpacity={0.8} />}
-            {todayData && <ReferenceDot x={todayData.day} y={todayData[metric]} r={6} fill="var(--card-bg)" stroke={metricConfig.color} strokeWidth={3} isFront />}
-            <Tooltip content={<CustomTooltip unit={metricConfig.unit} />} wrapperStyle={{ outline: "none" }} cursor={false} />
-          </LineChart>
-        </ResponsiveContainer>
+        <div className="w-full h-full min-h-[250px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={data} margin={{ top: 10, right: 24, left: 16, bottom: 6 }}>
+              <defs>
+                <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor={metricConfig.gradient} stopOpacity={0.35} />
+                  <stop offset="60%" stopColor={metricConfig.gradient} stopOpacity={0.12} /><stop offset="100%" stopColor={metricConfig.gradient} stopOpacity={0.04} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid vertical={false} stroke="var(--border-color)" strokeDasharray="3 3" />
+              <XAxis dataKey="day" axisLine={false} tickLine={false} padding={{ left: 10, right: 10 }} tick={{ fill: "var(--muted-text)", fontSize: 12 }} />
+              <YAxis axisLine={false} tickLine={false} tick={{ fill: "var(--muted-text)", fontSize: 12 }} />
+              <Area type="monotone" dataKey={metric} stroke="transparent" fill="url(#areaGrad)" isAnimationActive={false} />
+              <Line type="monotone" dataKey={metric} stroke={metricConfig.color} strokeWidth={3} dot={false} activeDot={{ r: 6 }} isAnimationActive={false} />
+              {todayData && (
+                <>
+                  <ReferenceLine x={todayData.day} stroke="var(--border-color)" strokeWidth={1} strokeOpacity={0.8} />
+                  <ReferenceDot x={todayData.day} y={todayData[metric]} r={6} fill="var(--card-bg)" stroke={metricConfig.color} strokeWidth={3} isFront />
+                </>
+              )}
+              <Tooltip content={<CustomTooltip unit={metricConfig.unit} />} wrapperStyle={{ outline: "none" }} cursor={false} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
+
     </Card>
   )
 }

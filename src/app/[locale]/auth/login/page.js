@@ -3,13 +3,15 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn, getCurrentUser, fetchAuthSession } from "aws-amplify/auth";
 
 // Validation Schema
 const schema = Yup.object().shape({
-  identifier: Yup.string().required("Username or Email is required"),
+  identifier: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
 
@@ -25,26 +27,49 @@ export default function LoginPage() {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
 
+  // Automatically redirect if already logged in
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const user = await getCurrentUser();
+        if (user) {
+          console.log("Already logged in:", user);
+          router.replace("/dashboard");
+        }
+      } catch {
+        // if no session, stay on login page
+      }
+    };
+    checkSession();
+  }, [router]);
+
+  // Sign-in logic using AWS Cognito (SRP flow)
   const onSubmit = async (data) => {
     setServerError("");
     setLoading(true);
 
     try {
-      // Should be changed with the actual API endpoint
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+      const { isSignedIn, nextStep } = await signIn({
+        username: data.identifier,
+        password: data.password,
       });
 
-      const result = await res.json();
-      if (!res.ok) throw new Error(result.message || "Login failed");
+      if (isSignedIn) {
+        console.log("Cognito login successful");
 
-      alert("Login successful!");
-      router.push("/dashboard");
-      reset();
+        const session = await fetchAuthSession();
+        const accessToken = session.tokens?.accessToken?.toString();
+        if (accessToken) localStorage.setItem("access_token", accessToken);
+
+        router.push("/dashboard");
+        reset();
+      } else {
+        console.warn("Login flow not completed:", nextStep);
+        setServerError("Additional verification required. Please check Cognito settings.");
+      }
     } catch (err) {
-      setServerError(err.message);
+      console.error("Cognito login error:", err);
+      setServerError(err.message || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -66,18 +91,21 @@ export default function LoginPage() {
         </div>
 
         <div className="p-8 w-full max-w-md transition-colors duration-300">
-          <h1 className="text-xl font-semibold text-center mb-6 transition-colors duration-300 text-(--card-text)">Welcome Back</h1>
+          <h1 className="text-xl font-semibold text-center mb-6 transition-colors duration-300 text-(--card-text)">
+            Welcome Back
+          </h1>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            {/* Username / Email Feild */}
+            {/* Email Field */}
             <div>
-              <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">Username / Email</label>
+              <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">
+                Email
+              </label>
               <input
                 type="text"
                 {...register("identifier")}
-                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${
-                  errors.identifier ? "border-red-500" : ""
-                }`}
+                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${errors.identifier ? "border-red-500" : ""
+                  }`}
                 style={{
                   backgroundColor: "var(--header-input-bg)",
                   borderColor: errors.identifier
@@ -93,15 +121,16 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Password Feild */}
+            {/* Password Field */}
             <div>
-              <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">Password</label>
+              <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">
+                Password
+              </label>
               <input
                 type="password"
                 {...register("password")}
-                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${
-                  errors.password ? "border-red-500" : ""
-                }`}
+                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${errors.password ? "border-red-500" : ""
+                  }`}
                 style={{
                   backgroundColor: "var(--header-input-bg)",
                   borderColor: errors.password
@@ -115,31 +144,24 @@ export default function LoginPage() {
                   {errors.password.message}
                 </p>
               )}
+              {/* Forgot Password Link 
+              <div className="text-right mt-1">
+                <Link
+                  href="/auth/reset-password"
+                  className="text-sm text-green-700 hover:underline"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              */}
             </div>
-
-            {/* Remember Me + Forgot Password 
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-(--muted-text)">
-                <input
-                  type="checkbox" 
-                  className="rounded border text-green-700 focus:ring-green-600 border-(--border-color)"/>
-                Remember Me
-              </label>
-
-              <a
-                href="/auth/reset-password"
-                className="text-sm hover:underline" style={{ color: "var(--chart-fill)" }}
-              >
-                Forgot Password?
-              </a>
-            </div>*/}
 
             {/* Server Error */}
             {serverError && (
               <p className="text-red-500 text-sm text-center">{serverError}</p>
             )}
 
-            {/* Form Submittion */}
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
@@ -153,21 +175,10 @@ export default function LoginPage() {
               {loading ? "Logging in..." : "Login"}
             </button>
           </form>
-
-          {/* Signup Link 
-          <p className="text-sm text-center mt-4 text-(--muted-text)">Don’t have an account?{" "}
-            <a
-              href="/auth/signup"
-              className="font-medium hover:underline"
-              style={{ color: "var(--chart-fill)" }}
-            >
-              Sign up
-            </a>
-          </p>*/}
         </div>
       </div>
 
-      {/* Right - Image (picture yet to be decided) */}
+      {/* Right - Image */}
       <div className="hidden md:block w-1/2 relative">
         <Image
           src="/greenhouse.jpg"

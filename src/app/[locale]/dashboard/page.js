@@ -9,8 +9,9 @@ import CropInfo from "./components/CropInfo";
 import GrowthTimeline from "./components/GrowthTimeline";
 import { Thermometer, Droplet, AirVent } from "lucide-react";
 import { useTranslations } from 'next-intl';
+import { withAuth } from "@/components/withAuth";
 
-export default function DashboardPage() {
+function DashboardPage() {
 
   const  t  = useTranslations('Dashboard');
 
@@ -69,3 +70,5 @@ export default function DashboardPage() {
     </Layout>
   );
 }
+
+export default withAuth(DashboardPage);
