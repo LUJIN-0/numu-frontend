@@ -5,6 +5,7 @@ import SplashScreen from "@/components/splashScreen";
 import Script from "next/script";
 import { NextIntlClientProvider, useLocale } from 'next-intl';
 import AmplifyProvider from "@/components/amplifyProvider";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Numu",
-    icons: {
+  icons: {
     icon: "/favicon.ico",
   },
   description: "Smart greenhouse monitoring system",
@@ -46,12 +47,14 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider locale={locale}>
-          <AmplifyProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-              <SplashScreen />
-              {children}
-            </ThemeProvider>
-          </AmplifyProvider>
+          <AuthProvider>
+            <AmplifyProvider>
+              <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                <SplashScreen />
+                {children}
+              </ThemeProvider>
+            </AmplifyProvider>
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

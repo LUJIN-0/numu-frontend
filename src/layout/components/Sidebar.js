@@ -93,7 +93,7 @@ export default function Sidebar({ isOpen }) {
 
         {/* Control Panel link */}
         <a
-          href="./control"
+          href="./controlPanel"
           className={`flex p-3 rounded-lg font-medium transition-colors
         ${pathname === "/controlPanel"
               ? "bg-(--sidebar-active-bg) text-(--sidebar-active-text)"

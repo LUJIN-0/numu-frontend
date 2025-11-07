@@ -1,6 +1,5 @@
 'use client'
 
-import Layout from "@/layout/Layout";
 import StatCard from "./components/StatCard";
 import Alerts from "./components/Alerts";
 import Chart from "./components/Chart";
@@ -9,14 +8,12 @@ import CropInfo from "./components/CropInfo";
 import GrowthTimeline from "./components/GrowthTimeline";
 import { Thermometer, Droplet, AirVent } from "lucide-react";
 import { useTranslations } from 'next-intl';
-import { withAuth } from "@/components/withAuth";
 
-function DashboardPage() {
+export default function DashboardPage() {
 
   const  t  = useTranslations('Dashboard');
 
   return (
-    <Layout>
       <div className="flex min-h-screen bg-background var(--foreground)">
         {/* Main Content */}
         <div className="flex-1 flex flex-col">
@@ -67,8 +64,5 @@ function DashboardPage() {
           </main>
         </div>
       </div>
-    </Layout>
   );
 }
-
-export default withAuth(DashboardPage);
