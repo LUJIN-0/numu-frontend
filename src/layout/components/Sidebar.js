@@ -63,7 +63,7 @@ export default function Sidebar({ isOpen }) {
         <a
           href="./dashboard"
           className={`flex p-3 rounded-lg font-medium transition-colors
-        ${pathname === "/dashboard"
+        ${pathname === "/en/dashboard" || pathname === "/ar/dashboard"
               ? "bg-(--sidebar-active-bg) text-(--sidebar-active-text)"
               : "hover:bg-(--sidebar-hover)"
             } 
@@ -75,7 +75,7 @@ export default function Sidebar({ isOpen }) {
           )}
         </a>
 
-        {/* Logs link */}
+        {/* Logs link 
         <a
           href="./logs"
           className={`flex p-3 rounded-lg font-medium transition-colors
@@ -90,8 +90,9 @@ export default function Sidebar({ isOpen }) {
             <span className="ml-1 whitespace-nowrap text-sm">{t('logs')}</span>
           )}
         </a>
+        */}
 
-        {/* Control Panel link */}
+        {/* Control Panel link 
         <a
           href="./controlPanel"
           className={`flex p-3 rounded-lg font-medium transition-colors
@@ -106,12 +107,13 @@ export default function Sidebar({ isOpen }) {
             <span className="ml-1 whitespace-nowrap text-sm">{t('control-panel')}</span>
           )}
         </a>
+        */}
 
         {/* Alerts link */}
         <a
           href="./alerts"
           className={`flex p-3 rounded-lg font-medium transition-colors
-        ${pathname === "/alerts"
+        ${pathname === "/en/alerts" || pathname === "/ar/alerts"
               ? "bg-(--sidebar-active-bg) text-(--sidebar-active-text)"
               : "hover:bg-(--sidebar-hover)"
             } 

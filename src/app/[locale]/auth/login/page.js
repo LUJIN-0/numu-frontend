@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn, getCurrentUser, fetchAuthSession } from "aws-amplify/auth";
+import { useTranslations } from 'next-intl';
 
 // Validation Schema
 const schema = Yup.object().shape({
@@ -19,6 +20,7 @@ export default function LoginPage() {
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const  t  = useTranslations('Login');
 
   const {
     register,
@@ -92,14 +94,14 @@ export default function LoginPage() {
 
         <div className="p-8 w-full max-w-md transition-colors duration-300">
           <h1 className="text-xl font-semibold text-center mb-6 transition-colors duration-300 text-(--card-text)">
-            Welcome Back
+           {t('welcome')}
           </h1>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email Field */}
             <div>
               <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">
-                Email
+                {t('email')}
               </label>
               <input
                 type="text"
@@ -124,7 +126,7 @@ export default function LoginPage() {
             {/* Password Field */}
             <div>
               <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">
-                Password
+                {t('password')}
               </label>
               <input
                 type="password"
@@ -172,7 +174,7 @@ export default function LoginPage() {
                 border: "1px solid var(--border-color)",
               }}
             >
-              {loading ? "Logging in..." : "Login"}
+              {loading ? t('loading') : t('login')}
             </button>
           </form>
         </div>

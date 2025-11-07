@@ -80,7 +80,7 @@ export default function Header({ onToggleSidebar }) {
             <div className="absolute right-0 min-w-max bg-(--header-bg) border border-(--border-color) rounded-md z-50">
               <button
                 onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 rounded text-sm text-(--header-text) hover:bg-(--header-hover)"
+                className="block w-full text-left px-4 py-2 rounded text-sm text-(--header-text) hover:bg-(--header-hover) cursor-pointer"
               >
                 {t("logout")}
               </button>

@@ -26,9 +26,27 @@
     "parameter": "Parameter",
     "ideal-range": "Ideal Range",
     "temp-day": "Temp (Day)",
-    "temp-night": "Temp (Night)"
+    "temp-night": "Temp (Night)",
+    "view-all": "View All"
   },
   "SplashScreen": {
     "splash-screen": "A Smart Greenhouse Monitoring System"
+  },
+  "Login": {
+    "welcome": "Welcome Back",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "loading": "Logging in...",
+    "email-required": "Email is required",
+    "password-required": "Password is required"
+  },
+  "Alerts": {
+    "title": "System Alerts",
+    "parameter-alerts": "Parameter Alerts",
+    "type": "Type",
+    "message": "Message",
+    "time": "Time",
+    "device-alerts": "Device Alerts"
   }
 }

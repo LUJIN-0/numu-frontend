@@ -26,9 +26,27 @@
     "parameter": "المعامل",
     "ideal-range": "النطاق المثالي",
     "temp-day": "درجة الحرارة (نهارًا)",
-    "temp-night": "درجة الحرارة (ليلًا)"
+    "temp-night": "درجة الحرارة (ليلًا)",
+    "view-all": "عرض الكل"
   },
   "SplashScreen": {
     "splash-screen": "نظام مراقبة المحميات الذكي"
+  },
+  "Login": {
+    "welcome": "مرحبًا بعودتك",
+    "email": "الإيميل",
+    "password": "الرقم السري",
+    "login": "تسجيل الدخول",
+    "loading": "جاري التسجيل...",
+    "email-required": "الإيميل مطلوب",
+    "password-required": "الرقم السري مطلوب"
+  },
+  "Alerts": {
+    "title": "تنبيهات النظام",
+    "parameter-alerts": "تنبيهات المعاملات",
+    "type": "النوع",
+    "message": "الرسالة",
+    "time": "الوقت",
+    "device-alerts": "تنبيهات الأجهزة"
   }
 }
