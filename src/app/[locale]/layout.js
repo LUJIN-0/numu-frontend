@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
   const locale = useLocale();
 
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
+    <html lang={locale} dir={locale === "ar" ? "ltr" : "ltr"} suppressHydrationWarning>
       <head>
         {/* Prevent theme flash before hydration */}
         <Script id="theme-initializer" strategy="beforeInteractive">

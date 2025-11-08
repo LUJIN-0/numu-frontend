@@ -47,6 +47,8 @@
     "type": "Type",
     "message": "Message",
     "time": "Time",
-    "device-alerts": "Device Alerts"
+    "device-alerts": "Device Alerts",
+    "no-parameter-alerts": "No parameter alerts available",
+    "no-device-alerts": "'No device alerts available"
   }
 }

@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Home, FileText, Settings, ChevronDown, LayoutDashboard, AlertOctagon } from "lucide-react";
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function Sidebar({ isOpen }) {
   const [greenhouseOpen, setGreenhouseOpen] = useState(false);
   const pathname = usePathname();
-  const  t  = useTranslations('SideBar');
+  const t = useTranslations('SideBar');
+  const locale = useLocale();
 
   return (
     <aside
@@ -63,7 +64,7 @@ export default function Sidebar({ isOpen }) {
         <a
           href="./dashboard"
           className={`flex p-3 rounded-lg font-medium transition-colors
-        ${pathname === "/en/dashboard" || pathname === "/ar/dashboard"
+        ${pathname === `/${locale}/dashboard`
               ? "bg-(--sidebar-active-bg) text-(--sidebar-active-text)"
               : "hover:bg-(--sidebar-hover)"
             } 
@@ -113,7 +114,7 @@ export default function Sidebar({ isOpen }) {
         <a
           href="./alerts"
           className={`flex p-3 rounded-lg font-medium transition-colors
-        ${pathname === "/en/alerts" || pathname === "/ar/alerts"
+        ${pathname === `/${locale}/alerts`
               ? "bg-(--sidebar-active-bg) text-(--sidebar-active-text)"
               : "hover:bg-(--sidebar-hover)"
             } 

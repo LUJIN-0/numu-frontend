@@ -48,7 +48,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Location */}
-            <div className="col-span-4 rounded-lg p-4 bg-(--card-bg)" style={{border: "1px solid var(--border-color)", }}>
+            <div className="col-span-8 rounded-lg p-4 bg-(--card-bg)" style={{border: "1px solid var(--border-color)", }}>
               <LocationMap />
             </div>
 
@@ -57,10 +57,10 @@ export default function DashboardPage() {
               <CropInfo />
             </div>
 
-            {/* Growth */}
+            {/* Growth 
             <div className="col-span-4 rounded-lg p-4 bg-(--card-bg)" style={{border: "1px solid var(--border-color)", }}>
               <GrowthTimeline />
-            </div>
+            </div>*/}
           </main>
         </div>
       </div>

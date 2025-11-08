@@ -21,7 +21,7 @@ export default function LanguageSwitcher() {
 
   const changeLanguage = (lang) => {
     setCurrentLang(lang)
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
+    //document.documentElement.dir = lang === 'ar' ? 'ltr' : 'ltr'
     const newPath = pathname.replace(/^\/(en|ar)/, `/${lang}`)
     router.push(newPath)
   }

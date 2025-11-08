@@ -7,20 +7,23 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signIn, getCurrentUser, fetchAuthSession } from "aws-amplify/auth";
+import { signIn, fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { useTranslations } from 'next-intl';
+import { useAuth } from "@/context/AuthContext";
 
 // Validation Schema
-const schema = Yup.object().shape({
-  identifier: Yup.string().required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
-
 export default function LoginPage() {
+  const t = useTranslations('Login');
+
+  const schema = Yup.object().shape({
+    identifier: Yup.string().required(t('email-required')),
+    password: Yup.string().required(t('password-required')),
+  });
+
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const  t  = useTranslations('Login');
+  const { setUser } = useAuth();
 
   const {
     register,
@@ -57,21 +60,27 @@ export default function LoginPage() {
       });
 
       if (isSignedIn) {
-        console.log("Cognito login successful");
+        console.log("✅ Cognito login successful");
 
+        // Fetch tokens if needed
         const session = await fetchAuthSession();
         const accessToken = session.tokens?.accessToken?.toString();
         if (accessToken) localStorage.setItem("access_token", accessToken);
+
+        // Update AuthContext user
+        const email = data.identifier;
+        const name = email.includes("@") ? email.split("@")[0] : email;
+        setUser({ name });
 
         router.push("/dashboard");
         reset();
       } else {
         console.warn("Login flow not completed:", nextStep);
-        setServerError("Additional verification required. Please check Cognito settings.");
+        setServerError(t('extra_verification'));
       }
     } catch (err) {
-      console.error("Cognito login error:", err);
-      setServerError(err.message || "Login failed");
+      console.error("❌ Cognito login error:", err);
+      setServerError(err.message || t('login_failed'));
     } finally {
       setLoading(false);
     }
@@ -94,7 +103,7 @@ export default function LoginPage() {
 
         <div className="p-8 w-full max-w-md transition-colors duration-300">
           <h1 className="text-xl font-semibold text-center mb-6 transition-colors duration-300 text-(--card-text)">
-           {t('welcome')}
+            {t('welcome')}
           </h1>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -106,13 +115,10 @@ export default function LoginPage() {
               <input
                 type="text"
                 {...register("identifier")}
-                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${errors.identifier ? "border-red-500" : ""
-                  }`}
+                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${errors.identifier ? "border-red-500" : ""}`}
                 style={{
                   backgroundColor: "var(--header-input-bg)",
-                  borderColor: errors.identifier
-                    ? "#ef4444"
-                    : "var(--border-color)",
+                  borderColor: errors.identifier ? "#ef4444" : "var(--border-color)",
                   color: "var(--card-text)",
                 }}
               />
@@ -131,13 +137,10 @@ export default function LoginPage() {
               <input
                 type="password"
                 {...register("password")}
-                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${errors.password ? "border-red-500" : ""
-                  }`}
+                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${errors.password ? "border-red-500" : ""}`}
                 style={{
                   backgroundColor: "var(--header-input-bg)",
-                  borderColor: errors.password
-                    ? "#ef4444"
-                    : "var(--border-color)",
+                  borderColor: errors.password ? "#ef4444" : "var(--border-color)",
                   color: "var(--card-text)",
                 }}
               />
@@ -152,7 +155,7 @@ export default function LoginPage() {
                   href="/auth/reset-password"
                   className="text-sm text-green-700 hover:underline"
                 >
-                  Forgot password?
+                  {t('forgot_password')}
                 </Link>
               </div>
               */}
