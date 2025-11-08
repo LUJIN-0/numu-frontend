@@ -1,6 +1,6 @@
 "use client";
 
-const fmt = (n, unit) => (typeof n === "number" ? `${n}${unit}` : n);
+const fmt = (n, unit) => (typeof n === "number" ? `${n}${unit}` : n ?? "");
 
 export default function LogsTable({ rows }) {
   return (
@@ -11,7 +11,7 @@ export default function LogsTable({ rows }) {
             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Timestamp</th>
             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Temperature</th>
             <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Humidity</th>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">AQI</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Barometer</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100 bg-white">
@@ -22,12 +22,12 @@ export default function LogsTable({ rows }) {
               </td>
             </tr>
           ) : (
-            rows.map((r) => (
-              <tr key={r.ts} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm text-gray-800">{r.ts}</td>
+            rows.map((r, i) => (
+              <tr key={`${r.ts || "na"}-${r._raw?.devEui || "dev"}-${i}`} className="hover:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-gray-800">{r.tsDisplay}</td>
                 <td className="px-4 py-3 text-sm text-gray-700">{fmt(r.temp, "°C")}</td>
                 <td className="px-4 py-3 text-sm text-gray-700">{fmt(r.rh, "%")}</td>
-                <td className="px-4 py-3 text-sm text-gray-700">{r.aqi}</td>
+                <td className="px-4 py-3 text-sm text-gray-700">{r.barometer ?? ""}</td>
               </tr>
             ))
           )}
