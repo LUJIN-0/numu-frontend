@@ -63,7 +63,7 @@ export default function Header({ onToggleSidebar }) {
           </Link>
         </div>
 
-        {/* Search bar */}
+        {/* Search bar 
         <div className="relative flex-1 max-w-md mx-5">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
@@ -90,7 +90,7 @@ export default function Header({ onToggleSidebar }) {
     text-(--header-text) text-sm placeholder:text-sm placeholder:italic border-(--header-border) border"
           />
 
-          {/* Results dropdown */}
+          
           {results.length > 0 && (
             <div className="absolute top-full mt-1 left-0 right-0 bg-(--card-bg) border border-(--border-color) rounded-md shadow-md z-50">
               {results.map((r, i) => (
@@ -105,7 +105,7 @@ export default function Header({ onToggleSidebar }) {
               ))}
             </div>
           )}
-        </div>
+        </div>*/}
 
       </div>
 

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Layout from "@/layout/Layout";
 
-export default function DashboardLayout({ children }) {
+export default function AlertsLayout({ children }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 

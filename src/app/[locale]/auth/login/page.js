@@ -5,11 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn, fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { useTranslations } from 'next-intl';
 import { useAuth } from "@/context/AuthContext";
+import { Eye, EyeOff } from "lucide-react";
 
 // Validation Schema
 export default function LoginPage() {
@@ -22,6 +22,7 @@ export default function LoginPage() {
 
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const { setUser } = useAuth();
 
@@ -30,9 +31,15 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      identifier: "numusystem@gmail.com",
+      password: "testuser-2026",
+    },
+  });
 
-  // Automatically redirect if already logged in
+  // Automatically redirect to dashboard if already logged in
   useEffect(() => {
     const checkSession = async () => {
       try {
@@ -48,7 +55,7 @@ export default function LoginPage() {
     checkSession();
   }, [router]);
 
-  // Sign-in logic using AWS Cognito (SRP flow)
+  // Login logic using AWS Cognito
   const onSubmit = async (data) => {
     setServerError("");
     setLoading(true);
@@ -60,14 +67,14 @@ export default function LoginPage() {
       });
 
       if (isSignedIn) {
-        console.log("✅ Cognito login successful");
+        console.log("Cognito login successful");
 
-        // Fetch tokens if needed
-        const session = await fetchAuthSession();
-        const accessToken = session.tokens?.accessToken?.toString();
-        if (accessToken) localStorage.setItem("access_token", accessToken);
+        // Fetch session
+        const { tokens } = await fetchAuthSession();
+        const accessToken = tokens?.accessToken?.toString();
+        console.log("Access token after login:", accessToken);
 
-        // Update AuthContext user
+        // Update global user context
         const email = data.identifier;
         const name = email.includes("@") ? email.split("@")[0] : email;
         setUser({ name });
@@ -79,7 +86,7 @@ export default function LoginPage() {
         setServerError(t('extra_verification'));
       }
     } catch (err) {
-      console.error("❌ Cognito login error:", err);
+      console.error("Cognito login error:", err);
       setServerError(err.message || t('login_failed'));
     } finally {
       setLoading(false);
@@ -134,16 +141,25 @@ export default function LoginPage() {
               <label className="block text-sm mb-1 transition-colors duration-300 text-(--muted-text)">
                 {t('password')}
               </label>
-              <input
-                type="password"
-                {...register("password")}
-                className={`w-full border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${errors.password ? "border-red-500" : ""}`}
-                style={{
-                  backgroundColor: "var(--header-input-bg)",
-                  borderColor: errors.password ? "#ef4444" : "var(--border-color)",
-                  color: "var(--card-text)",
-                }}
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  {...register("password")}
+                  className={`w-full border rounded-md p-2 pr-10 focus:outline-none focus:ring-1 focus:ring-green-700 transition-colors duration-300 ${errors.password ? "border-red-500" : ""}`}
+                  style={{
+                    backgroundColor: "var(--header-input-bg)",
+                    borderColor: errors.password ? "#ef4444" : "var(--border-color)",
+                    color: "var(--card-text)",
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-2 flex items-center text-(--muted-text) cursor-pointer"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
               {errors.password && (
                 <p className="text-red-500 text-xs mt-1">
                   {errors.password.message}
@@ -170,7 +186,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full font-medium py-2 rounded-md transition disabled:opacity-60"
+              className="w-full font-medium py-2 rounded-md cursor-pointer transition disabled:opacity-60"
               style={{
                 backgroundColor: "var(--sidebar-bg)",
                 color: "#fff",
@@ -192,6 +208,7 @@ export default function LoginPage() {
           className="object-cover"
           priority
         />
+        <div className="image-overlay"></div>
       </div>
     </div>
   );

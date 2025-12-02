@@ -7,7 +7,7 @@ let configured = false;
 
 export function configureAmplify() {
   if (configured) return;
-  if (typeof window === 'undefined') return; // Never configure during SSR
+  if (typeof window === 'undefined') return;
 
   Amplify.configure({
     Auth: {

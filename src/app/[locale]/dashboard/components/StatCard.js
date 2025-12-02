@@ -63,7 +63,7 @@ export default function StatCard({ title, value, max, icon = null }) {
 
   return (
     <div
-      className="col-span-4 rounded-lg border p-4 sm:p-6 flex flex-col items-center justify-center transition-all duration-300
+      className="col-span-3 rounded-lg border p-4 sm:p-6 flex flex-col items-center justify-center transition-all duration-300
        border-(--border-color) bg-(--card-bg) text-(--card-text)"
     >
       <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">

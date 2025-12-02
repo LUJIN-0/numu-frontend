@@ -29,7 +29,6 @@ export function AuthProvider({ children }) {
 
     loadUser()
 
-    // listen for auth events
     const unsubscribe = Hub.listen('auth', ({ payload }) => {
       if (payload.event === 'signedIn') loadUser()
       else if (payload.event === 'signedOut') setUser(null)

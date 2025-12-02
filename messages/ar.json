@@ -4,7 +4,14 @@
     "logs": "السجلات",
     "control-panel": "لوحة التحكم",
     "alerts": "التنبيهات",
-    "greenhouse": "المحمية"
+    "greenhouse": "المحمية",
+    "loading-greenhouses": "جاري تحميل المحميات...",
+    "greenhouse-error": "خطأ في المحمية",
+    "no-greenhouse": "لا توجد محميات متاحة",
+    "select-greenhouse": "اختر محمية لعرض البيانات",
+    "add-greenhouse": "أضف محمية",
+    "close": "إغلاق",
+    "unavailable": "هذه الخدمة غير متاحة حاليًا."
   },
   "Header": {
     "search": "ابحث",
@@ -14,6 +21,8 @@
     "temp": "الحرارة",
     "humedity": "الرطوبة",
     "aqi": "مؤشر جودة الهواء",
+    "barometer": "بارومتر",
+    "gas-resistance": "مقاومة الغاز",
     "historical-data": "البيانات التاريخية",
     "daily": "باليوم",
     "hourly": "بالساعة",
@@ -24,10 +33,33 @@
     "name": "الاسم",
     "growth": "الجدول الزمني للنمو",
     "parameter": "المعامل",
+    "crop-stage": "مرحلة المحصول",
     "ideal-range": "النطاق المثالي",
     "temp-day": "درجة الحرارة (نهارًا)",
     "temp-night": "درجة الحرارة (ليلًا)",
-    "view-all": "عرض الكل"
+    "view-all": "عرض الكل",
+    "germination": "الإنبات",
+    "seedling": "مرحلة الشتلة",
+    "vegetative": "المرحلة الخضرية",
+    "loading-chart": "جاري تحميل الرسم البياني...",
+    "no-data-period": "لا توجد بيانات لهذه الفترة",
+    "stage": "مرحلة",
+    "days-short": "أيام",
+    "current-day": "اليوم",
+    "sown": "تم زرعه في",
+    "no-stages": "لا توجد مراحل محصولية متاحة",
+    "no-alerts": "لا توجد تنبيهات جديدة متاحة",
+    "stage-early-growth": "النمو المبكر",
+    "stage-vegetative": "المرحلة الخضرية",
+    "stage-flowering": "مرحلة الإزهار",
+    "stage-fruit-formation": "مرحلة تكوين الثمار",
+    "stage-mature-fruiting": "مرحلة نضج الثمار",
+    "status-completed": "مكتملة",
+    "status-in-progress": "قيد التنفيذ",
+    "status-upcoming": "قادمة",
+    "no-greenhouse": "لا توجد محميات متاحة",
+    "select-greenhouse": "اختر محمية لعرض البيانات",
+    "loading-greenhouses": "جاري تحميل المحميات..."
   },
   "SplashScreen": {
     "splash-screen": "نظام مراقبة المحميات الذكي"
@@ -39,7 +71,9 @@
     "login": "تسجيل الدخول",
     "loading": "جاري التسجيل...",
     "email-required": "الإيميل مطلوب",
-    "password-required": "الرقم السري مطلوب"
+    "password-required": "الرقم السري مطلوب",
+    "login_failed": "فشل تسجيل الدخول",
+    "extra_verification": "مطلوب تأكيد إضافي. يرجى مراجعة حسابك."
   },
   "Alerts": {
     "title": "تنبيهات النظام",
@@ -49,6 +83,10 @@
     "time": "الوقت",
     "device-alerts": "تنبيهات الأجهزة",
     "no-parameter-alerts": "لا توجد تنبيهات متاحة للمعاملات",
-    "no-device-alerts": "لا توجد تنبيهات متاحة للأجهزة"
+    "no-device-alerts": "لا توجد تنبيهات متاحة للأجهزة",
+    "loading": "جاري التحميل...",
+    "showing-for": "عرض التنبيهات لـ",
+    "no-greenhouse": "لا توجد محميات متاحة",
+    "select-greenhouse": "اختر محمية لعرض البيانات"
   }
 }

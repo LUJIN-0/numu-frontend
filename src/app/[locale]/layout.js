@@ -6,6 +6,7 @@ import Script from "next/script";
 import { NextIntlClientProvider, useLocale } from 'next-intl';
 import AmplifyProvider from "@/components/amplifyProvider";
 import { AuthProvider } from "@/context/AuthContext";
+import { GreenhouseProvider } from '@/context/GreenhouseContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,7 @@ export default function RootLayout({ children }) {
   const locale = useLocale();
 
   return (
-    <html lang={locale} dir={locale === "ar" ? "ltr" : "ltr"} suppressHydrationWarning>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
         {/* Prevent theme flash before hydration */}
         <Script id="theme-initializer" strategy="beforeInteractive">
@@ -48,12 +49,14 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider locale={locale}>
           <AuthProvider>
-            <AmplifyProvider>
-              <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                <SplashScreen />
-                {children}
-              </ThemeProvider>
-            </AmplifyProvider>
+            <GreenhouseProvider>
+              <AmplifyProvider>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                  <SplashScreen />
+                  {children}
+                </ThemeProvider>
+              </AmplifyProvider>
+            </GreenhouseProvider>
           </AuthProvider>
         </NextIntlClientProvider>
       </body>

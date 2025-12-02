@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--image-overlay);
+  transition: background-color 0.5s ease;
+}
+
 /* Light theme */
 :root {
 
@@ -24,6 +31,9 @@
   /* Splash Screen*/
   --SplashScreen-background: #ffffff;
 
+  /* Image Overlay */
+  --image-overlay: rgba(255, 255, 255, 0);
+
   /* Cards and content */
   --card-bg: #ffffff;
   --card-text: #1f2937;
@@ -31,6 +41,16 @@
   --chart-bg: #EAF4EE;
   --chart-fill: #2F4635;
   --chart-empty: #EAF4EE;
+
+  /* Growth Timeline */
+  --gt-completed-bg: #2F4635;
+  --gt-completed-icon: #ffffff;
+
+  --gt-progress-bg: #9cd4a8;
+  --gt-progress-ring: #6fb985;
+
+  --gt-upcoming-border: #cbd5e1;
+  --gt-upcoming-dot: #94a3b8;
 
   /* Table */
   --table-header-bg: #efefdc;
@@ -74,6 +94,7 @@
 /* Dark theme */
 html.dark {
   --background: #0b1510;
+  --login-background: (232, 241, 232, 0.5);
   --foreground: #e8f1e8;
 
   /* Sidebar */
@@ -96,6 +117,9 @@ html.dark {
   /* Splash Screen*/
   --SplashScreen-background: #171d19;
 
+  /* Image Overlay */
+  --image-overlay: rgba(0, 0, 0, 0.5);
+
   /* Cards and content */
   --card-bg: #1a231d;
   --card-text: #e3f1e6;
@@ -103,6 +127,17 @@ html.dark {
   --chart-bg: #2d3f33;
   --chart-fill: #9cd4a8;
   --chart-empty: #2d3f33;
+
+  /* Growth Timeline */
+  --gt-completed-bg: #6fb985;
+  --gt-completed-icon: #0f1b15;
+
+  --gt-progress-bg: #2f6b57;
+  --gt-progress-ring: #8bd19a;
+
+  --gt-upcoming-border: #3c4a42;
+  --gt-upcoming-dot: #56635d;
+
 
   /* Table */
   --table-header-bg: #273329;
@@ -199,6 +234,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

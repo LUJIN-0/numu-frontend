@@ -4,7 +4,14 @@
     "logs": "Logs",
     "control-panel": "Control Panel",
     "alerts": "Alerts",
-    "greenhouse": "Greenhouse"
+    "greenhouse": "Greenhouse",
+    "loading-greenhouses": "Loading Greenhouses...",
+    "greenhouse-error": "Greenhouse Error",
+    "no-greenhouse": "No Greenhouse Available",
+    "select-greenhouse": "Select a greenhouse to view data",
+    "add-greenhouse": "Add Greenhouse",
+    "close": "Close",
+    "unavailable": "This service is currently unavailable."
   },
   "Header": {
     "search": "Search",
@@ -14,6 +21,8 @@
     "temp": "Temperature",
     "humedity": "Humidity",
     "aqi": "AQI",
+    "barometer": "Barometer",
+    "gas-resistance": "Gas Resistance",
     "historical-data": "Historical Data",
     "daily": "Daily",
     "hourly": "Hourly",
@@ -24,10 +33,33 @@
     "name": "Name",
     "growth": "Growth Timeline",
     "parameter": "Parameter",
+    "crop-stage": "Crop's Stage",
     "ideal-range": "Ideal Range",
     "temp-day": "Temp (Day)",
     "temp-night": "Temp (Night)",
-    "view-all": "View All"
+    "view-all": "View All",
+    "germination": "Germination",
+    "seedling": "Seedling",
+    "vegetative": "Vegetative",
+    "loading-chart": "Loading Chart...",
+    "no-data-period": "No data for this period",
+    "stage": "Stage",
+    "days-short": "Days",
+    "current-day": "Current Day",
+    "sown": "Sown",
+    "no-stages": "No crop stages available",
+    "no-alerts": "No New Alerts Available",
+    "stage-early-growth": "Early Growth",
+    "stage-vegetative": "Vegetative",
+    "stage-flowering": "Flowering",
+    "stage-fruit-formation": "Fruit Formation",
+    "stage-mature-fruiting": "Mature Fruiting",
+    "status-completed": "Completed",
+    "status-in-progress": "In progress",
+    "status-upcoming": "Upcoming",
+    "no-greenhouse": "No Greenhouse Available",
+    "select-greenhouse": "Select a greenhouse to view data",
+    "loading-greenhouses": "Loading Greenhouses..."
   },
   "SplashScreen": {
     "splash-screen": "A Smart Greenhouse Monitoring System"
@@ -39,7 +71,9 @@
     "login": "Login",
     "loading": "Logging in...",
     "email-required": "Email is required",
-    "password-required": "Password is required"
+    "password-required": "Password is required",
+    "login_failed": "Login failed",
+    "extra_verification": "Additional verification required. Please check your account."
   },
   "Alerts": {
     "title": "System Alerts",
@@ -49,6 +83,10 @@
     "time": "Time",
     "device-alerts": "Device Alerts",
     "no-parameter-alerts": "No parameter alerts available",
-    "no-device-alerts": "'No device alerts available"
+    "no-device-alerts": "No device alerts available",
+    "loading": "Loading...",
+    "showing-for": "Showing alerts for",
+    "no-greenhouse": "No Greenhouse Available",
+    "select-greenhouse": "Select a greenhouse to view data"
   }
 }

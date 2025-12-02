@@ -12,7 +12,7 @@ export default function LocationMap() {
       <iframe
         src="https://maps.google.com/maps?q=King%20Abdulaziz%20University&t=&z=15&ie=UTF8&iwloc=&output=embed"
         width="100%"
-        height="200"
+        height="400"
         className="rounded"
         style={{ border: 0 }}
         allowFullScreen=""
