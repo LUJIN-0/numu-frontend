@@ -81,7 +81,17 @@
     "clear": "مسح",
     "close": "إغلاق",
     "cancel": "إلغاء",
-    "apply": "تطبيق"
+    "apply": "تطبيق",
+    "action-activated": "تم تشغيل {type}",
+    "action-deactivated": "تم إيقاف {type}",
+    "status-above-optimal": "{param} أعلى من الحدّ المثالي",
+    "status-below-optimal": "{param} أقل من الحدّ المثالي",
+    "status-within-optimal": "{param} ضمن الحدّ المثالي",
+    "cooling": "التبريد",
+    "fan": "مروحة",
+    "heater": "مدفأة",
+    "status-triggered": "تم التفعيل",
+    "pump": "مضخة"
   },
   "SplashScreen": {
     "splash-screen": "نظام مراقبة المحميات الذكي"
@@ -110,11 +120,30 @@
     "showing-for": "عرض التنبيهات لـ",
     "no-greenhouse": "لا توجد محميات متاحة",
     "select-greenhouse": "اختر محمية لعرض البيانات",
-    "device-activated": "تم التفعيل",
-    "device-deactivated": "تم الإيقاف",
+    "device-activated": "تم تشغيل الجهاز",
+    "device-deactivated": "تم إيقاف الجهز",
     "failed-load-alerts": "فشل في تحميل التنبيهات",
     "no-alerts": "لا توجد تنبيهات متاحة",
     "temperature": "الحرارة",
-    "threshold-alerts": "تنبيهات الحدّ"
+    "threshold-alerts": "تنبيهات الحدّ",
+    "temperature-alerts": "تنبيهات الحرارة",
+    "no-threshold-alerts": "لا توجد تنبيهات حدّ متاحة",
+    "humidity": "الرطوبة",
+    "barometer": "بارومتر",
+    "gas-resistance": "مقاومة الغاز",
+    "cooling": "التبريد",
+    "fan": "مروحة",
+    "heater": "مدفأة",
+    "status-above-optimal": "{param} أعلى من الحدّ المثالي",
+    "status-below-optimal": "{param} أقل من الحدّ المثالي",
+    "status-within-optimal": "{param} ضمن الحدّ المثالي",
+    "status-triggered": "تم التفعيل",
+    "temperature-alert": "تنبيهات الحرارة",
+    "device-alert": "تنبيهات الأجهزة",
+    "view-all": "عرض الكل",
+    "alerts": "التنبيهات",
+    "action-activated": "تم تشغيل {type}",
+    "action-deactivated": "تم إيقاف {type}",
+    "pump": "مضخة"
   }
 }

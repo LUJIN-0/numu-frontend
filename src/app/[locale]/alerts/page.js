@@ -23,12 +23,52 @@ export default function AlertsPage() {
   );
 
   useEffect(() => {
-    // detect directionality so we can adapt alignment & layout
     if (typeof document !== "undefined") {
       const dir = document.documentElement?.dir || document.body?.dir || "ltr";
       setIsRTL(dir.toLowerCase() === "rtl");
     }
   }, []);
+
+  const paramLabel = (parameter) => {
+    if (!parameter) return "—";
+    const p = parameter.toLowerCase();
+    const map = {
+      temperature: t('temperature') || 'Temperature',
+      humidity: t('humidity') || 'Humidity',
+      barometer: t('barometer') || 'Barometer',
+      gas: t('gas-resistance') || 'Gas',
+    };
+    return map[p] || parameter;
+  };
+
+  const controlLabel = (type) => {
+    if (!type) return "—";
+    const p = type.toLowerCase();
+    const map = {
+      cooling: t('cooling') || 'Cooling',
+      fan: t('fan') || 'Fan',
+      heater: t('heater') || 'Heater',
+      pump: t('pump') || 'Pump'
+    };
+    return map[p] || type;
+  };
+
+  const statusLabelFor = (parameterName, status) => {
+    const param = paramLabel(parameterName);
+    const statusMap = {
+      above_optimal: t('status-above-optimal', { param }),
+      below_optimal: t('status-below-optimal', { param }),
+      within_optimal: t('status-within-optimal', { param }),
+      triggered: t('status-triggered'),
+    };
+    return statusMap[status] || (status ? status.replace(/_/g, ' ') : '');
+  };
+
+  const fmtNumber = (v) => {
+    if (v == null || Number.isNaN(Number(v))) return "—";
+    const n = Number(v);
+    return Number.isInteger(n) ? `${n}` : `${Math.round(n * 100) / 100}`;
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -51,44 +91,56 @@ export default function AlertsPage() {
       }
 
       try {
-        // Call endpoints (they return { alerts: [...], page, size, total })
         const thRaw = await getThresholdAlerts(selectedGreenhouseId);
         const ctrlRaw = await getControlAlerts(selectedGreenhouseId);
 
         const thList = Array.isArray(thRaw?.alerts) ? thRaw.alerts : [];
         const ctrlList = Array.isArray(ctrlRaw?.alerts) ? ctrlRaw.alerts : [];
 
-        // Normalize threshold alerts
-        const normalizedThresholds = thList.map((a) => ({
-          id: a.id,
-          kind: "threshold",
-          parameter: a.parameter,
-          message:
-            a.parameter === "temperature"
-              ? `${t('temperature')}: ${Number.isFinite(a.value) ? (Math.trunc(a.value * 100) / 100) + "°C" : a.value}`
-              : `${a.parameter}: ${a.value}`,
-          time: a.createdAt || a.time || null,
-          raw: a,
-        }));
+        const normalizedThresholds = thList.map((a) => {
+          const value = a.value;
+          const parameter = a.parameter;
+          const paramText = paramLabel(parameter);
+          const valText = Number.isFinite(value) ? `${fmtNumber(value)}${parameter === 'temperature' ? '°C' : ''}` : String(value ?? '—');
 
-        // Normalize control alerts
-        const normalizedControls = ctrlList.map((a) => ({
-          id: a.id,
-          kind: "control",
-          controlType: a.type || a.action || "control",
-          message:
+          const hasStatus = !!a.status;
+          const finalMessage = hasStatus
+            ? `${statusLabelFor(parameter, a.status)}: ${valText}`
+            : `${paramText}: ${valText}`;
+
+          return {
+            id: a.id,
+            kind: "threshold",
+            parameter,
+            parameterLabel: paramText,
+            message: finalMessage,
+            time: a.createdAt || a.time || null,
+            raw: a,
+          };
+        });
+
+        const normalizedControls = ctrlList.map((a) => {
+          const ctlLabel = controlLabel(a.type);
+          // Use i18n placeholder so Arabic ordering can be correct
+          const message =
             a.action === "activation"
-              ? t('device-activated')
+              ? (t('action-activated', { type: ctlLabel }) || `${ctlLabel} activated`)
               : a.action === "deactivation"
-                ? t('device-deactivated')
-                : `${a.type} ${a.action}`,
-          time: a.createdAt || a.time || null,
-          raw: a,
-        }));
+                ? (t('action-deactivated', { type: ctlLabel }) || `${ctlLabel} deactivated`)
+                : (`${ctlLabel} ${a.action}`);
+          return {
+            id: a.id,
+            kind: "control",
+            controlType: a.type,
+            controlLabel: ctlLabel,
+            message,
+            time: a.createdAt || a.time || null,
+            raw: a,
+          };
+        });
 
         if (!isMounted) return;
 
-        // sort descending (newest first)
         normalizedThresholds.sort((x, y) => new Date(y.time).getTime() - new Date(x.time).getTime());
         normalizedControls.sort((x, y) => new Date(y.time).getTime() - new Date(x.time).getTime());
 
@@ -109,7 +161,6 @@ export default function AlertsPage() {
     };
   }, [ghLoading, ghError, greenhouses, selectedGreenhouseId, t]);
 
-  // Alignment helpers (switch text alignment based on direction)
   const thAlign = isRTL ? "text-right" : "text-left";
   const tdAlign = isRTL ? "text-right" : "text-left";
   const containerDirStyle = { direction: isRTL ? "rtl" : "ltr" };
@@ -136,7 +187,6 @@ export default function AlertsPage() {
 
   return (
     <div className="p-6 min-h-screen bg-background text-(--card-text)" style={containerDirStyle}>
-      {/* Header */}
       <div className={`flex items-center justify-between mb-8 ${isRTL ? "flex-row-reverse" : ""}`}>
         <div>
           {selectedGreenhouse && (
@@ -154,7 +204,6 @@ export default function AlertsPage() {
         )}
       </div>
 
-      {/* Threshold Alerts */}
       <section className="mb-10">
         <h2 className="text-lg font-medium mb-4 text-(--muted-text)">
           {t('threshold-alerts')}
@@ -163,7 +212,6 @@ export default function AlertsPage() {
           {alertsError ? (
             <div className="p-6 text-center text-red-500">{alertsError}</div>
           ) : parameterAlerts.length > 0 ? (
-            // responsive wrapper prevents overflow on narrow screens
             <div className="w-full overflow-auto">
               <table className="w-full min-w-[640px] text-sm border-collapse">
                 <thead className="bg-(--table-header-bg) text-(--card-text)">
@@ -175,11 +223,8 @@ export default function AlertsPage() {
                 </thead>
                 <tbody>
                   {parameterAlerts.map((alert, i) => (
-                    <tr
-                      key={alert.id || i}
-                      className="border-t border-(--border-color) hover:bg-(--header-hover) transition-colors duration-200"
-                    >
-                      <td className={`py-3 px-4 font-medium text-(--card-text) min-w-0 ${tdAlign} wrap-break-word`}>{alert.parameter}</td>
+                    <tr key={alert.id || i} className="border-t border-(--border-color) hover:bg-(--header-hover) transition-colors duration-200">
+                      <td className={`py-3 px-4 font-medium text-(--card-text) min-w-0 ${tdAlign} wrap-break-word`}>{alert.parameterLabel || alert.parameter}</td>
                       <td className={`py-3 px-4 text-(--muted-text) min-w-0 ${tdAlign} wrap-break-word`}>{alert.message}</td>
                       <td className={`py-3 px-4 text-(--faint-text) min-w-0 ${tdAlign} wrap-break-word`}>{alert.time ? format(new Date(alert.time), "dd MMM, h:mm a") : "—"}</td>
                     </tr>
@@ -197,7 +242,6 @@ export default function AlertsPage() {
         </div>
       </section>
 
-      {/* Control Alerts */}
       <section>
         <h2 className="text-lg font-medium mb-4 text-(--muted-text)">
           {t('device-alerts')}
@@ -217,11 +261,8 @@ export default function AlertsPage() {
                 </thead>
                 <tbody>
                   {deviceAlerts.map((alert, i) => (
-                    <tr
-                      key={alert.id || i}
-                      className="border-t border-(--border-color) hover:bg-(--header-hover) transition-colors duration-200"
-                    >
-                      <td className={`py-3 px-4 font-medium text-(--card-text) min-w-0 ${tdAlign} wrap-break-word`}>{alert.controlType}</td>
+                    <tr key={alert.id || i} className="border-t border-(--border-color) hover:bg-(--header-hover) transition-colors duration-200">
+                      <td className={`py-3 px-4 font-medium text-(--card-text) min-w-0 ${tdAlign} wrap-break-word`}>{alert.controlLabel || alert.controlType}</td>
                       <td className={`py-3 px-4 text-(--muted-text) min-w-0 ${tdAlign} wrap-break-word`}>{alert.message}</td>
                       <td className={`py-3 px-4 text-(--faint-text) min-w-0 ${tdAlign} wrap-break-word`}>{alert.time ? format(new Date(alert.time), "dd MMM, h:mm a") : "—"}</td>
                     </tr>

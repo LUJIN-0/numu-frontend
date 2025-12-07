@@ -81,7 +81,17 @@
     "clear": "Clear",
     "close": "Close",
     "cancel": "Cancel",
-    "apply": "Apply"
+    "apply": "Apply",
+    "status-above-optimal": "{param} above optimal",
+    "status-below-optimal": "{param} below optimal",
+    "status-within-optimal": "{param} within optimal",
+    "cooling": "Cooling",
+    "fan": "Fan",
+    "heater": "Heater",
+    "status-triggered": "Triggered",
+    "action-activated": "{type} activated",
+    "action-deactivated": "{type} deactivated",
+    "pump": "Pump"
   },
   "SplashScreen": {
     "splash-screen": "A Smart Greenhouse Monitoring System"
@@ -115,6 +125,23 @@
     "device-deactivated": "Deactivated",
     "failed-load-alerts": "Failed to load alerts",
     "no-alerts": "No Alerts Available",
-    "temperature": "Temperature"
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "barometer": "Barometer",
+    "gas-resistance": "Gas Resistance",
+    "cooling": "Cooling",
+    "fan": "Fan",
+    "heater": "Heater",
+    "status-above-optimal": "{param} above optimal",
+    "status-below-optimal": "{param} below optimal",
+    "status-within-optimal": "{param} within optimal",
+    "status-triggered": "Triggered",
+    "temperature-alert": "Temperature alert",
+    "device-alert": "Device alert",
+    "view-all": "View all",
+    "alerts": "Alerts",
+    "action-activated": "{type} activated",
+    "action-deactivated": "{type} deactivated",
+    "pump": "Pump"
   }
 }
