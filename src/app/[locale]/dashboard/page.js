@@ -100,7 +100,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex min-h-screen bg-background var(--foreground)">
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         <main className="p-6 grid grid-cols-12 gap-4">
           {error && (
             <div className="col-span-12 mb-2 text-sm text-red-500">
@@ -108,49 +108,81 @@ export default function DashboardPage() {
             </div>
           )}
 
-          <StatCard
-            title={t('temp')}
-            value={formatTemp(temp)}
-            max={50}
-            icon={<Thermometer size={16} style={{ color: "var(--muted-text)" }} />}
-          />
-          <StatCard
-            title={t('humedity')}
-            value={formatHumidity(humidity)}
-            max={100}
-            icon={<Droplet size={16} style={{ color: "var(--muted-text)" }} />}
-          />
-          <StatCard
-            title={t('barometer')}
-            value={formatBarometer(barometer)}
-            max={1100}
-            icon={<AirVent size={16} style={{ color: "var(--muted-text)" }} />}
-          />
-          <StatCard
-            title={t('gas-resistance')}
-            value={formatGas(gasResistance)}
-            max={50}
-            icon={<AlarmSmoke size={16} style={{ color: "var(--muted-text)" }} />}
-          />
-
-          <div className="col-span-8 rounded-lg p-4 bg-(--card-bg)" style={{ border: "1px solid var(--border-color)" }}>
-            <Chart greenhouseId={selectedGreenhouseId} />
+          {/* Stat cards - responsive */}
+          <div className="col-span-12 sm:col-span-6 md:col-span-3 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <StatCard
+                title={t('temp')}
+                value={formatTemp(temp)}
+                max={50}
+                icon={<Thermometer size={16} style={{ color: "var(--muted-text)" }} />}
+              />
+            </div>
           </div>
 
-          <div className="col-span-4 rounded-lg p-4 bg-(--card-bg)" style={{ border: "1px solid var(--border-color)" }}>
-            <Alerts />
+          <div className="col-span-12 sm:col-span-6 md:col-span-3 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <StatCard
+                title={t('humidity')}
+                value={formatHumidity(humidity)}
+                max={100}
+                icon={<Droplet size={16} style={{ color: "var(--muted-text)" }} />}
+              />
+            </div>
           </div>
 
-          <div className="col-span-4 rounded-lg p-4 bg-(--card-bg)" style={{ border: "1px solid var(--border-color)" }}>
-            <LocationMap />
+          <div className="col-span-12 sm:col-span-6 md:col-span-3 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <StatCard
+                title={t('barometer')}
+                value={formatBarometer(barometer)}
+                max={1100}
+                icon={<AirVent size={16} style={{ color: "var(--muted-text)" }} />}
+              />
+            </div>
           </div>
 
-          <div className="col-span-4 rounded-lg p-4 bg-(--card-bg)" style={{ border: "1px solid var(--border-color)" }}>
-            <CropInfo crop={crop} />
+          <div className="col-span-12 sm:col-span-6 md:col-span-3 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <StatCard
+                title={t('gas-resistance')}
+                value={formatGas(gasResistance)}
+                max={50}
+                icon={<AlarmSmoke size={16} style={{ color: "var(--muted-text)" }} />}
+              />
+            </div>
           </div>
 
-          <div className="col-span-4 rounded-lg p-4 bg-(--card-bg)" style={{ border: "1px solid var(--border-color)" }}>
-            <GrowthTimeline crop={crop} />
+          {/* Chart and Alerts: responsive layout */}
+          <div className="col-span-12 lg:col-span-8 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <Chart greenhouseId={selectedGreenhouseId} />
+            </div>
+          </div>
+
+          <div className="col-span-12 lg:col-span-4 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <Alerts />
+            </div>
+          </div>
+
+          {/* Bottom cards: Map, CropInfo, GrowthTimeline - responsive */}
+          <div className="col-span-12 md:col-span-6 lg:col-span-4 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <LocationMap />
+            </div>
+          </div>
+
+          <div className="col-span-12 md:col-span-6 lg:col-span-4 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <CropInfo crop={crop} />
+            </div>
+          </div>
+
+          <div className="col-span-12 md:col-span-6 lg:col-span-4 min-w-0">
+            <div className="rounded-lg p-4 bg-(--card-bg) h-full w-full overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+              <GrowthTimeline crop={crop} />
+            </div>
           </div>
         </main>
       </div>

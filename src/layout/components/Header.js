@@ -1,6 +1,6 @@
 'use client'
 
-import { Search, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
@@ -20,8 +20,6 @@ export default function Header({ onToggleSidebar }) {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const t = useTranslations("Header");
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
 
   useEffect(() => setMounted(true), []);
 
@@ -62,51 +60,6 @@ export default function Header({ onToggleSidebar }) {
             <Image src={mainLogo} alt="NUMU Logo" width={75} height={28} className="cursor-pointer" />
           </Link>
         </div>
-
-        {/* Search bar 
-        <div className="relative flex-1 max-w-md mx-5">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => {
-              const val = e.target.value.toLowerCase();
-              setQuery(val);
-
-              // small keyword-to-page mapping
-              const pages = [
-                { title: "Dashboard", path: "/dashboard", keywords: ["temp", "humidity", "aqi", "growth", "chart", "stats"] },
-                { title: "Alerts", path: "/alerts", keywords: ["alert", "device", "time", "aqi", "threshold", "humidity", "temperature"] },
-              ];
-
-              const found = pages.filter(p =>
-                p.keywords.some(k => k.toLowerCase().includes(val)) ||
-                p.title.toLowerCase().includes(val)
-              );
-              setResults(val ? found : []);
-            }}
-            placeholder={t("search")}
-            className="w-full pl-10 pr-3 py-1.5 bg-(--header-input-bg) focus:outline-none rounded-lg placeholder-gray-300 
-    text-(--header-text) text-sm placeholder:text-sm placeholder:italic border-(--header-border) border"
-          />
-
-          
-          {results.length > 0 && (
-            <div className="absolute top-full mt-1 left-0 right-0 bg-(--card-bg) border border-(--border-color) rounded-md shadow-md z-50">
-              {results.map((r, i) => (
-                <Link
-                  key={i}
-                  href={r.path}
-                  onClick={() => { setQuery(""); setResults([]); }}
-                  className="block px-3 py-2 text-sm text-(--card-text) hover:bg-(--header-hover)"
-                >
-                  {r.title}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>*/}
-
       </div>
 
       <div className="flex items-center gap-4">
@@ -116,6 +69,7 @@ export default function Header({ onToggleSidebar }) {
         <div className="w-px h-9 bg-(--header-border)" />
 
         <div className="relative" ref={menuRef}>
+          {/* Username panel */}
           <div
             onClick={() => setOpen(!open)}
             className="bg-(--header-input-bg) px-3 py-2 rounded text-(--header-text) text-sm cursor-pointer hover:bg-(--header-hover) transition inline-block min-w-fit"
@@ -123,14 +77,17 @@ export default function Header({ onToggleSidebar }) {
             {user ? user.name : "Guest"}
           </div>
 
+          {/* Dropdown */}
           {open && (
-            <div className="absolute right-0 min-w-max bg-(--header-bg) border border-(--border-color) rounded-md z-50">
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 rounded text-sm text-(--header-text) hover:bg-(--header-hover) cursor-pointer"
-              >
-                {t("logout")}
-              </button>
+            <div className="absolute top-full right-0 mt-1 w-full">
+              <div className="bg-(--header-bg) border border-(--border-color) rounded-md shadow-md">
+                <button
+                  onClick={handleLogout}
+                  className="block w-full px-4 py-2 rounded text-sm text-center text-(--header-text) hover:bg-(--header-hover) cursor-pointer"
+                >
+                  {t("logout")}
+                </button>
+              </div>
             </div>
           )}
         </div>

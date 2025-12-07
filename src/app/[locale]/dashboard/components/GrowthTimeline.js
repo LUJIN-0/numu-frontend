@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Check } from "lucide-react";
+import { useEffect, useState } from "react";
 
 function getCurrentDay(sowDateStr) {
   if (!sowDateStr) return null;
@@ -9,6 +10,7 @@ function getCurrentDay(sowDateStr) {
   if (isNaN(sow.getTime())) return null;
 
   const today = new Date();
+  // normalize to midnight local
   const sowMid = new Date(sow.getFullYear(), sow.getMonth(), sow.getDate());
   const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   const diffDays = Math.floor((todayMid.getTime() - sowMid.getTime()) / (1000 * 60 * 60 * 24));
@@ -17,6 +19,18 @@ function getCurrentDay(sowDateStr) {
 
 export default function GrowthTimeline({ crop }) {
   const t = useTranslations('Dashboard');
+
+  // detect RTL from document direction
+  const [isRTL, setIsRTL] = useState(false);
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      const dir =
+        document.documentElement?.getAttribute("dir") ||
+        document.body?.getAttribute("dir") ||
+        "ltr";
+      setIsRTL(String(dir).toLowerCase() === "rtl");
+    }
+  }, []);
 
   const sowDateStr = crop?.sowDate || null;
   const currentDay = sowDateStr ? getCurrentDay(sowDateStr) : null;
@@ -37,7 +51,6 @@ export default function GrowthTimeline({ crop }) {
     "Mature Fruiting": "stage-mature-fruiting",
   };
 
-  // Status translation map
   const STATUS_TRANSLATIONS = {
     Completed: 'status-completed',
     'In Progress': 'status-in-progress',
@@ -56,7 +69,6 @@ export default function GrowthTimeline({ crop }) {
       else if (currentDay >= startDay && currentDay <= endDay) status = "In Progress";
     }
 
-    // Translate status for display
     const statusLabel = STATUS_TRANSLATIONS[status]
       ? t(STATUS_TRANSLATIONS[status])
       : status;
@@ -80,8 +92,8 @@ export default function GrowthTimeline({ crop }) {
       stage: STAGE_TRANSLATIONS[stage.name]
         ? t(STAGE_TRANSLATIONS[stage.name])
         : stage.name,
-      status,      
-      statusLabel, 
+      status,
+      statusLabel,
       range: `${startDay} – ${endDay} ${t('days-short')}`,
       percent
     };
@@ -89,8 +101,13 @@ export default function GrowthTimeline({ crop }) {
 
   const hasStages = stages.length > 0;
 
+  // vertical line position style (left for LTR, right for RTL)
+  const linePositionStyle = isRTL
+    ? { right: "0.75rem", left: "auto" }
+    : { left: "0.75rem", right: "auto" };
+
   return (
-    <div>
+    <div className="min-w-0">
       <h2 className="font-light text-lg mb-4 wrap-break-word transition-colors duration-300 text-(--muted-text)">
         {t('growth')}
       </h2>
@@ -106,9 +123,16 @@ export default function GrowthTimeline({ crop }) {
           {t('no-stages')}
         </p>
       ) : (
-        <div className="relative pl-6">
-          {/* Vertical line */}
-          <div className="absolute top-0 left-3 w-0.5 h-full bg-(--border-color) opacity-60"></div>
+        <div className={`relative ${isRTL ? 'pr-6' : 'pl-6'}`}>
+          {/* Vertical line (position depends on direction) */}
+          <div
+            className="absolute top-0 h-full bg-(--border-color) opacity-60"
+            style={{
+              width: "2px",
+              ...linePositionStyle,
+            }}
+            aria-hidden="true"
+          />
 
           <ul className="space-y-6 text-sm">
             {stages.map((s, i) => {
@@ -141,10 +165,13 @@ export default function GrowthTimeline({ crop }) {
                 };
               }
 
+              // For RTL swap margin
+              const markerWrapperClass = isRTL ? "mr-0 ml-3" : "ml-0 mr-3";
+
               return (
-                <li key={i} className="relative flex items-start gap-4">
+                <li key={i} className="relative flex items-start gap-4 min-w-0">
                   {/* Circle marker */}
-                  <div className="relative flex items-center justify-center mt-0.5">
+                  <div className={`relative flex items-center justify-center mt-0.5 ${markerWrapperClass}`} style={{ flex: "0 0 auto" }}>
                     <div className={circleClasses} style={circleStyle}>
                       {isCompleted ? (
                         <Check size={14} />
@@ -157,8 +184,8 @@ export default function GrowthTimeline({ crop }) {
                   </div>
 
                   {/* Text content */}
-                  <div className="flex-1">
-                    <p className="font-medium transition-colors duration-300 text-(--card-text)">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium transition-colors duration-300 text-(--card-text) wrap-break-word">
                       {s.stage}
                     </p>
                     <p

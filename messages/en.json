@@ -19,7 +19,7 @@
   },
   "Dashboard": {
     "temp": "Temperature",
-    "humedity": "Humidity",
+    "humidity": "Humidity",
     "aqi": "AQI",
     "barometer": "Barometer",
     "gas-resistance": "Gas Resistance",
@@ -59,7 +59,29 @@
     "status-upcoming": "Upcoming",
     "no-greenhouse": "No Greenhouse Available",
     "select-greenhouse": "Select a greenhouse to view data",
-    "loading-greenhouses": "Loading Greenhouses..."
+    "loading-greenhouses": "Loading Greenhouses...",
+    "device-activated": "Activated",
+    "device-deactivated": "Deactivated",
+    "failed-load-alerts": "Failed to load alerts",
+    "loading": "Loading...",
+    "temperature-alert": "Temperature Alert",
+    "device-alert": "Device Alert",
+    "temperature": "Temperature",
+    "set-range-date": "Set Range Date",
+    "select-range": "Select Date Range",
+    "select-range-helper": "Pick start and end dates for the chart",
+    "presets": "Presets",
+    "last-7-days": "Last 7 Days",
+    "last-30-days": "Last 30 Days",
+    "this-month": "This Month",
+    "start-date": "Start Date",
+    "end-date": "End Date",
+    "pick-both-dates": "Pick both start and end dates",
+    "end-before-start": "End date must be the same or after start date",
+    "clear": "Clear",
+    "close": "Close",
+    "cancel": "Cancel",
+    "apply": "Apply"
   },
   "SplashScreen": {
     "splash-screen": "A Smart Greenhouse Monitoring System"
@@ -77,16 +99,22 @@
   },
   "Alerts": {
     "title": "System Alerts",
-    "parameter-alerts": "Parameter Alerts",
+    "threshold-alerts": "Threshold Alerts",
+    "temperature-alerts": "Temperature Alerts",
     "type": "Type",
     "message": "Message",
     "time": "Time",
     "device-alerts": "Device Alerts",
-    "no-parameter-alerts": "No parameter alerts available",
+    "no-threshold-alerts": "No threshold alerts available",
     "no-device-alerts": "No device alerts available",
     "loading": "Loading...",
     "showing-for": "Showing alerts for",
     "no-greenhouse": "No Greenhouse Available",
-    "select-greenhouse": "Select a greenhouse to view data"
+    "select-greenhouse": "Select a greenhouse to view data",
+    "device-activated": "Activated",
+    "device-deactivated": "Deactivated",
+    "failed-load-alerts": "Failed to load alerts",
+    "no-alerts": "No Alerts Available",
+    "temperature": "Temperature"
   }
 }

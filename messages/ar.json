@@ -19,7 +19,7 @@
   },
   "Dashboard": {
     "temp": "الحرارة",
-    "humedity": "الرطوبة",
+    "humidity": "الرطوبة",
     "aqi": "مؤشر جودة الهواء",
     "barometer": "بارومتر",
     "gas-resistance": "مقاومة الغاز",
@@ -59,7 +59,29 @@
     "status-upcoming": "قادمة",
     "no-greenhouse": "لا توجد محميات متاحة",
     "select-greenhouse": "اختر محمية لعرض البيانات",
-    "loading-greenhouses": "جاري تحميل المحميات..."
+    "loading-greenhouses": "جاري تحميل المحميات...",
+    "device-activated": "تم التفعيل",
+    "device-deactivated": "تم الإيقاف",
+    "failed-load-alerts": "فشل في تحميل التنبيهات",
+    "loading": "جاري التحميل...",
+    "temperature-alert": "تنبيهات الحرارة",
+    "device-alert": "تنبيهات الأجهزة",
+    "temperature": "الحرارة",
+    "set-range-date": "تعيين نطاق التاريخ",
+    "select-range": "اختر نطاق التاريخ",
+    "select-range-helper": "حدد تاريخ البداية والنهاية للرسم البياني",
+    "presets": "إعدادات مسبقة",
+    "last-7-days": "آخر 7 أيام",
+    "last-30-days": "آخر 30 يومًا",
+    "this-month": "هذا الشهر",
+    "start-date": "تاريخ البداية",
+    "end-date": "تاريخ النهاية",
+    "pick-both-dates": "اختر تاريخ البداية والنهاية",
+    "end-before-start": "يجب أن يكون تاريخ النهاية بعد أو مساوي لتاريخ البداية",
+    "clear": "مسح",
+    "close": "إغلاق",
+    "cancel": "إلغاء",
+    "apply": "تطبيق"
   },
   "SplashScreen": {
     "splash-screen": "نظام مراقبة المحميات الذكي"
@@ -87,6 +109,12 @@
     "loading": "جاري التحميل...",
     "showing-for": "عرض التنبيهات لـ",
     "no-greenhouse": "لا توجد محميات متاحة",
-    "select-greenhouse": "اختر محمية لعرض البيانات"
+    "select-greenhouse": "اختر محمية لعرض البيانات",
+    "device-activated": "تم التفعيل",
+    "device-deactivated": "تم الإيقاف",
+    "failed-load-alerts": "فشل في تحميل التنبيهات",
+    "no-alerts": "لا توجد تنبيهات متاحة",
+    "temperature": "الحرارة",
+    "threshold-alerts": "تنبيهات الحدّ"
   }
 }
